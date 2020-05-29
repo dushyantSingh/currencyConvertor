@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,13 +15,124 @@
                     <view key="view" contentMode="scaleToFill" id="tDY-PI-ZcZ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cCc-KO-wDt">
+                                <rect key="frame" x="74" y="78" width="266" height="140"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="oKq-g3-5gc">
+                                        <rect key="frame" x="12" y="78" width="242" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="X0O-uk-tsN"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FQE-Ll-zfa">
+                                        <rect key="frame" x="12" y="8" width="90" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="90" id="SqE-Zs-pZG"/>
+                                            <constraint firstAttribute="height" constant="44" id="fOJ-zu-Gqf"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <state key="normal" title="SGD">
+                                            <color key="titleColor" name="FontColor"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" name="ForegroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="FQE-Ll-zfa" firstAttribute="top" secondItem="cCc-KO-wDt" secondAttribute="top" constant="8" id="FkE-CF-kLO"/>
+                                    <constraint firstItem="FQE-Ll-zfa" firstAttribute="leading" secondItem="cCc-KO-wDt" secondAttribute="leading" constant="12" id="Gbs-83-AMs"/>
+                                    <constraint firstAttribute="trailing" secondItem="oKq-g3-5gc" secondAttribute="trailing" constant="12" id="Hhf-mX-wmQ"/>
+                                    <constraint firstAttribute="bottom" secondItem="oKq-g3-5gc" secondAttribute="bottom" constant="18" id="NfE-Ib-PgR"/>
+                                    <constraint firstItem="oKq-g3-5gc" firstAttribute="leading" secondItem="cCc-KO-wDt" secondAttribute="leading" constant="12" id="RKe-th-89e"/>
+                                    <constraint firstAttribute="height" constant="140" id="TTs-Fe-vma"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s3P-CU-269">
+                                <rect key="frame" x="74" y="338" width="266" height="140"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="RKP-yN-y38">
+                                        <rect key="frame" x="12" y="78" width="242" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="RTg-Ov-KpO"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gfm-Az-n1d">
+                                        <rect key="frame" x="12" y="8" width="90" height="44"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="Ovu-Bc-Kpy"/>
+                                            <constraint firstAttribute="width" constant="90" id="tM1-Jt-oxN"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <state key="normal" title="SGD">
+                                            <color key="titleColor" name="FontColor"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" name="ForegroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="RKP-yN-y38" secondAttribute="bottom" constant="18" id="KLd-xN-hk3"/>
+                                    <constraint firstItem="gfm-Az-n1d" firstAttribute="leading" secondItem="s3P-CU-269" secondAttribute="leading" constant="12" id="ThA-zG-Fgl"/>
+                                    <constraint firstItem="RKP-yN-y38" firstAttribute="leading" secondItem="s3P-CU-269" secondAttribute="leading" constant="12" id="WEy-UH-ssh"/>
+                                    <constraint firstItem="gfm-Az-n1d" firstAttribute="top" secondItem="s3P-CU-269" secondAttribute="top" constant="8" id="a9y-pe-D7c"/>
+                                    <constraint firstAttribute="height" constant="140" id="go1-iY-iiK"/>
+                                    <constraint firstAttribute="trailing" secondItem="RKP-yN-y38" secondAttribute="trailing" constant="12" id="jdA-RU-Jl3"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2eW-an-Bpa">
+                                <rect key="frame" x="32" y="798" width="350" height="40"/>
+                                <color key="backgroundColor" name="ForegroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="dls-BE-yYV"/>
+                                </constraints>
+                                <state key="normal" title="Convert">
+                                    <color key="titleColor" name="FontColor"/>
+                                </state>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="equal.square" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="N0A-od-zuR">
+                                <rect key="frame" x="177" y="249" width="60" height="57.5"/>
+                                <color key="tintColor" name="FontColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="2QH-s3-4eE"/>
+                                    <constraint firstAttribute="height" constant="60" id="uFK-Mk-e86"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" name="BackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="N0A-od-zuR" firstAttribute="centerX" secondItem="tDY-PI-ZcZ" secondAttribute="centerX" id="0U9-pK-qMN"/>
+                            <constraint firstItem="jPr-ZL-tm6" firstAttribute="trailing" secondItem="2eW-an-Bpa" secondAttribute="trailing" constant="32" id="Bcr-Sm-UoW"/>
+                            <constraint firstItem="s3P-CU-269" firstAttribute="top" secondItem="N0A-od-zuR" secondAttribute="bottom" constant="30" id="L3R-uh-HqE"/>
+                            <constraint firstItem="s3P-CU-269" firstAttribute="leading" secondItem="jPr-ZL-tm6" secondAttribute="leading" constant="74" id="PeH-nc-mlX"/>
+                            <constraint firstItem="cCc-KO-wDt" firstAttribute="top" secondItem="jPr-ZL-tm6" secondAttribute="top" constant="34" id="Rsd-MV-qb9"/>
+                            <constraint firstItem="jPr-ZL-tm6" firstAttribute="trailing" secondItem="cCc-KO-wDt" secondAttribute="trailing" constant="74" id="SOM-CV-r72"/>
+                            <constraint firstItem="cCc-KO-wDt" firstAttribute="leading" secondItem="jPr-ZL-tm6" secondAttribute="leading" constant="74" id="STV-RV-Ruq"/>
+                            <constraint firstItem="jPr-ZL-tm6" firstAttribute="trailing" secondItem="s3P-CU-269" secondAttribute="trailing" constant="74" id="a3h-eo-GVA"/>
+                            <constraint firstItem="N0A-od-zuR" firstAttribute="top" secondItem="cCc-KO-wDt" secondAttribute="bottom" constant="30" id="eVg-Xa-SLo"/>
+                            <constraint firstItem="2eW-an-Bpa" firstAttribute="leading" secondItem="jPr-ZL-tm6" secondAttribute="leading" constant="32" id="gzi-Z6-aJg"/>
+                            <constraint firstItem="jPr-ZL-tm6" firstAttribute="bottom" secondItem="2eW-an-Bpa" secondAttribute="bottom" constant="24" id="uxN-Id-GVZ"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="jPr-ZL-tm6"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kBM-iC-UU9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="138"/>
+            <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="equal.square" catalog="system" width="64" height="56"/>
+        <namedColor name="BackgroundColor">
+            <color red="0.43500000238418579" green="1" blue="0.91399997472763062" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="FontColor">
+            <color red="0.043000001460313797" green="0.075000002980232239" blue="0.16899999976158142" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ForegroundColor">
+            <color red="0.35699999332427979" green="0.75300002098083496" blue="0.74500000476837158" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>
