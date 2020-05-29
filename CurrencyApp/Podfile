@@ -1,0 +1,24 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'CurrencyApp' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+	
+	pod 'RxSwift'                 
+    	pod 'RxCocoa'                 
+    	pod 'RxGesture'              
+   	pod 'RxOptional'
+
+
+  # Pods for CurrencyApp
+
+  target 'CurrencyAppTests' do
+    inherit! :search_paths
+    # Pods for testing
+		pod 'Quick', '~> 2.1'
+		pod 'Nimble', '~> 8.0'
+  end
+
+end
