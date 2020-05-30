@@ -1,4 +1,5 @@
 PODS:
+  - IQKeyboardManagerSwift (6.5.4)
   - Nimble (8.0.9)
   - Quick (2.2.0)
   - RxCocoa (5.1.1):
@@ -15,6 +16,7 @@ PODS:
   - RxSwift (5.1.1)
 
 DEPENDENCIES:
+  - IQKeyboardManagerSwift (= 6.5.4)
   - Nimble (~> 8.0)
   - Quick (~> 2.1)
   - RxCocoa
@@ -24,6 +26,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - IQKeyboardManagerSwift
     - Nimble
     - Quick
     - RxCocoa
@@ -33,6 +36,7 @@ SPEC REPOS:
     - RxSwift
 
 SPEC CHECKSUMS:
+  IQKeyboardManagerSwift: 2dde0fc70110e8eac7ccce2a46fdbec6a850b414
   Nimble: 98b888285a615fd34f20e61753cf58ea1402bde4
   Quick: 7fb19e13be07b5dfb3b90d4f9824c855a11af40e
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
@@ -41,6 +45,6 @@ SPEC CHECKSUMS:
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
 
-PODFILE CHECKSUM: 8d96c878b192dede055e1654ecde75574cb8f8fa
+PODFILE CHECKSUM: 27cefb219710411ab840f2c0e0195104c51f86bc
 
 COCOAPODS: 1.9.1
