@@ -9,10 +9,14 @@
 import RxSwift
 import RxCocoa
 
+enum ConvertViewModelEvents {
+    case showConvertAlert
+}
 class ConvertorViewModel {
     let title = "Convert"
     let convertButtonClicked = PublishSubject<Void>()
     
+    let events = PublishSubject<ConvertViewModelEvents>()
     private let disposeBag = DisposeBag()
    
     init() {
@@ -23,9 +27,8 @@ class ConvertorViewModel {
 extension ConvertorViewModel {
     private func setupEvents() {
         convertButtonClicked.asObservable()
-            .subscribe(onNext: {_ in
-                print("Convert button clicked")
-            })
+            .map{.showConvertAlert}
+            .bind(to: events)
             .disposed(by: disposeBag)
     }
 }
