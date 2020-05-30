@@ -46,10 +46,10 @@ class ConvertorViewModelSpec: QuickSpec {
                     let mockData = ExchangeModel(rates: ["SGD" : 1.5], base: "EUR", date: "Today")
                     subject.latestRateRequest.onNext(())
                     mockCurrencyService.onRetrieve.onNext(mockData)
-                    expect(subject.rates.value.base).toEventually(equal("EUR"))
-                    expect(subject.rates.value.date).toEventually(equal("Today"))
-                    expect(subject.rates.value.rates.count).toEventually(equal(1))
-                    expect(subject.rates.value.rates["SGD"]).toEventually(equal(1.5))
+                    expect(subject.exchangeRates.value.count)
+                        .toEventually(equal(2))
+                    expect(subject.exchangeRates.value["SGD"])
+                        .toEventually(equal(1.5))
                 }
                 it("should emit show error alert event when retrieve fails") {
                     let error = MockError()

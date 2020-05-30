@@ -16,9 +16,8 @@ class ConvertorViewModel {
     let convertButtonClicked = PublishSubject<Void>()
     let convertConfirmed = PublishSubject<Void>()
     let events = PublishSubject<ConvertViewModelEvents>()
-    let rates: BehaviorRelay<ExchangeModel> = BehaviorRelay(value: ExchangeModel(rates: [:],
-                                                   base: "EUR",
-                                                   date: ""))
+    let exchangeRates: BehaviorRelay<[String: Double]> = BehaviorRelay(value: [:])
+    let currencyCodes: BehaviorRelay<[String]> = BehaviorRelay(value: [])
     let latestRateRequest = PublishSubject<Void>()
     let currencyService: CurrencyServiceType
     let fromCurrency = BehaviorRelay<String>(value: "")
@@ -53,11 +52,15 @@ extension ConvertorViewModel {
                 guard let self = self else { return Observable.empty() }
                 return self.currencyService.retrieve(request: request)}
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { rates in
-                self.rates.accept(rates)},
-                       onError: { error in
-                        self.events
-                            .onNext(.showErrorAlert(message: error.localizedDescription))})
+            .subscribe(
+                onNext: { rates in
+                    var exchangeRates = rates.rates
+                    exchangeRates[rates.base] = 1.0
+                    self.exchangeRates.accept(exchangeRates)
+                    self.currencyCodes.accept(exchangeRates.keys.sorted()) },
+                
+                onError: { error in
+                    self.events.onNext(.showErrorAlert(message: error.localizedDescription))})
             .disposed(by: disposeBag)
     }
 }
