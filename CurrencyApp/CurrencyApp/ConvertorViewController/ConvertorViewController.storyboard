@@ -27,22 +27,21 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FQE-Ll-zfa">
-                                        <rect key="frame" x="12" y="8" width="90" height="44"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="SGD" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hLo-Gi-tpC">
+                                        <rect key="frame" x="12" y="12" width="120" height="42"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="90" id="SqE-Zs-pZG"/>
-                                            <constraint firstAttribute="height" constant="44" id="fOJ-zu-Gqf"/>
+                                            <constraint firstAttribute="width" constant="120" id="9Ei-0B-CKJ"/>
+                                            <constraint firstAttribute="height" constant="42" id="w7X-bB-0v0"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <state key="normal" title="SGD">
-                                            <color key="titleColor" name="FontColor"/>
-                                        </state>
-                                    </button>
+                                        <color key="textColor" name="FontColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
                                 </subviews>
                                 <color key="backgroundColor" name="ForegroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="FQE-Ll-zfa" firstAttribute="top" secondItem="cCc-KO-wDt" secondAttribute="top" constant="8" id="FkE-CF-kLO"/>
-                                    <constraint firstItem="FQE-Ll-zfa" firstAttribute="leading" secondItem="cCc-KO-wDt" secondAttribute="leading" constant="12" id="Gbs-83-AMs"/>
+                                    <constraint firstItem="hLo-Gi-tpC" firstAttribute="top" secondItem="cCc-KO-wDt" secondAttribute="top" constant="12" id="4Gh-it-Bbe"/>
+                                    <constraint firstItem="hLo-Gi-tpC" firstAttribute="leading" secondItem="cCc-KO-wDt" secondAttribute="leading" constant="12" id="660-I3-g7i"/>
                                     <constraint firstAttribute="trailing" secondItem="oKq-g3-5gc" secondAttribute="trailing" constant="12" id="Hhf-mX-wmQ"/>
                                     <constraint firstAttribute="bottom" secondItem="oKq-g3-5gc" secondAttribute="bottom" constant="18" id="NfE-Ib-PgR"/>
                                     <constraint firstItem="oKq-g3-5gc" firstAttribute="leading" secondItem="cCc-KO-wDt" secondAttribute="leading" constant="12" id="RKe-th-89e"/>
@@ -60,24 +59,23 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" keyboardType="decimalPad"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gfm-Az-n1d">
-                                        <rect key="frame" x="12" y="8" width="90" height="44"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="SGD" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2fR-RX-Fsa">
+                                        <rect key="frame" x="12" y="12" width="120" height="42"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="44" id="Ovu-Bc-Kpy"/>
-                                            <constraint firstAttribute="width" constant="90" id="tM1-Jt-oxN"/>
+                                            <constraint firstAttribute="width" constant="120" id="48w-Zq-FXX"/>
+                                            <constraint firstAttribute="height" constant="42" id="vgv-W4-A1U"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                        <state key="normal" title="SGD">
-                                            <color key="titleColor" name="FontColor"/>
-                                        </state>
-                                    </button>
+                                        <color key="textColor" name="FontColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
                                 </subviews>
                                 <color key="backgroundColor" name="ForegroundColor"/>
                                 <constraints>
+                                    <constraint firstItem="2fR-RX-Fsa" firstAttribute="leading" secondItem="s3P-CU-269" secondAttribute="leading" constant="12" id="JNk-Cj-wTJ"/>
                                     <constraint firstAttribute="bottom" secondItem="RKP-yN-y38" secondAttribute="bottom" constant="18" id="KLd-xN-hk3"/>
-                                    <constraint firstItem="gfm-Az-n1d" firstAttribute="leading" secondItem="s3P-CU-269" secondAttribute="leading" constant="12" id="ThA-zG-Fgl"/>
                                     <constraint firstItem="RKP-yN-y38" firstAttribute="leading" secondItem="s3P-CU-269" secondAttribute="leading" constant="12" id="WEy-UH-ssh"/>
-                                    <constraint firstItem="gfm-Az-n1d" firstAttribute="top" secondItem="s3P-CU-269" secondAttribute="top" constant="8" id="a9y-pe-D7c"/>
+                                    <constraint firstItem="2fR-RX-Fsa" firstAttribute="top" secondItem="s3P-CU-269" secondAttribute="top" constant="12" id="gXc-po-0VT"/>
                                     <constraint firstAttribute="height" constant="140" id="go1-iY-iiK"/>
                                     <constraint firstAttribute="trailing" secondItem="RKP-yN-y38" secondAttribute="trailing" constant="12" id="jdA-RU-Jl3"/>
                                 </constraints>
@@ -119,7 +117,9 @@
                     </view>
                     <connections>
                         <outlet property="convertButton" destination="2eW-an-Bpa" id="TMH-QV-Y3V"/>
+                        <outlet property="fromCurrencyCodeTextField" destination="hLo-Gi-tpC" id="QQ7-T0-EaX"/>
                         <outlet property="fromCurrencyTextField" destination="oKq-g3-5gc" id="iAR-dV-1u7"/>
+                        <outlet property="toCurrencyCodeTextField" destination="2fR-RX-Fsa" id="ksH-g7-5ka"/>
                         <outlet property="toCurrencyTextField" destination="RKP-yN-y38" id="mCu-Xd-fIJ"/>
                     </connections>
                 </viewController>

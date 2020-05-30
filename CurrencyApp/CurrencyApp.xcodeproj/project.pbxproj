@@ -11,7 +11,6 @@
 		44D5015E248109D8008DEC05 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D5015D248109D8008DEC05 /* SceneDelegate.swift */; };
 		44D50165248109DB008DEC05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44D50164248109DB008DEC05 /* Assets.xcassets */; };
 		44D50168248109DB008DEC05 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44D50166248109DB008DEC05 /* LaunchScreen.storyboard */; };
-		44D5017F24811E47008DEC05 /* ConvertorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D5017E24811E47008DEC05 /* ConvertorViewController.swift */; };
 		44D5018124811E5F008DEC05 /* ConvertorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D5018024811E5F008DEC05 /* ConvertorViewModel.swift */; };
 		44D5018324811E74008DEC05 /* ConvertorViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44D5018224811E74008DEC05 /* ConvertorViewController.storyboard */; };
 		44D501852481205E008DEC05 /* MainViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D501842481205E008DEC05 /* MainViewCoordinator.swift */; };
@@ -28,6 +27,7 @@
 		44D501A2248290E6008DEC05 /* MockService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D501A1248290E6008DEC05 /* MockService.swift */; };
 		44D501A424829130008DEC05 /* MockAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D501A324829130008DEC05 /* MockAlertView.swift */; };
 		44D501A6248292EA008DEC05 /* ConvertorViewModelEvents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D501A5248292EA008DEC05 /* ConvertorViewModelEvents.swift */; };
+		44D501A72482B9CC008DEC05 /* ConvertorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D5017E24811E47008DEC05 /* ConvertorViewController.swift */; };
 		55CCC47EDBF52346AD2551CD /* Pods_CurrencyAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 358BB5A1F19004F6C768AEAB /* Pods_CurrencyAppTests.framework */; };
 		DC2A231C2F1F17DA4B3BB7EB /* Pods_CurrencyApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEBA12C20A059CA200627042 /* Pods_CurrencyApp.framework */; };
 /* End PBXBuildFile section */
@@ -400,7 +400,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44D5017F24811E47008DEC05 /* ConvertorViewController.swift in Sources */,
 				44D5018124811E5F008DEC05 /* ConvertorViewModel.swift in Sources */,
 				44D5018D24817AEC008DEC05 /* ExchangeModel.swift in Sources */,
 				44D5019D24826643008DEC05 /* AlertModel.swift in Sources */,
@@ -412,6 +411,7 @@
 				44D501852481205E008DEC05 /* MainViewCoordinator.swift in Sources */,
 				44D50187248120DA008DEC05 /* MainViewModelCoordinator.swift in Sources */,
 				44D5015E248109D8008DEC05 /* SceneDelegate.swift in Sources */,
+				44D501A72482B9CC008DEC05 /* ConvertorViewController.swift in Sources */,
 				44D5019124817D46008DEC05 /* Environment.swift in Sources */,
 				44D5019F24826E50008DEC05 /* AlertViewPresenter.swift in Sources */,
 			);

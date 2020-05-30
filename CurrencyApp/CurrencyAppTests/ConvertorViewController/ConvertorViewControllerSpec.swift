@@ -11,7 +11,6 @@ import Nimble
 import RxSwift
 
 @testable import CurrencyApp
-
 class ConvertorViewControllerSpec: QuickSpec {
     override func spec() {
         describe("ConvertorViewController Test") {
@@ -23,14 +22,22 @@ class ConvertorViewControllerSpec: QuickSpec {
                 subject = UIViewController.make(viewController: ConvertorViewController.self)
                 mockCurrencyService = MockCurrencyService()
                 disposeBag = DisposeBag()
+                
                 subject.viewModel = ConvertorViewModel(currencyService: mockCurrencyService)
                 _ = subject.view
             }
+            
+            func selectRow(_ pickerView: UIPickerView, row: Int) {
+                pickerView.delegate?.pickerView?(pickerView,
+                                                 didSelectRow: row,
+                                                 inComponent: 0)
+            }
+            
             context("when view loads") {
                 it("should have title") {
                     expect(subject.title).to(equal("Convert"))
                 }
-                it("should latestRateRequest called") {
+                xit("should latestRateRequest called") {
                     var isLatestRateRequestCalled = false
                     subject.viewModel
                         .latestRateRequest
@@ -38,12 +45,12 @@ class ConvertorViewControllerSpec: QuickSpec {
                             isLatestRateRequestCalled = true
                         })
                         .disposed(by: disposeBag)
-                    subject.viewDidLoad()
+                    subject.fetchExchangeRates()
                     expect(isLatestRateRequestCalled).to(beTrue())
                 }
                 it("should retrieve called") {
                     mockCurrencyService.isRetrieveCalled = false
-                    subject.viewDidLoad()
+                    subject.fetchExchangeRates()
                     expect(mockCurrencyService.isRetrieveCalled).to(beTrue())
                 }
             }
@@ -155,7 +162,76 @@ class ConvertorViewControllerSpec: QuickSpec {
                     expect(subject.viewModel.toCurrency.value).to(equal("230"))
                 }
             }
+            context("when to picker view is reloaded") {
+                it("should display all currency codes") {
+                    subject.viewModel.currencyCodes.accept(["SGD", "EUR", "USD"])
+                    expect(subject.toPickerView.numberOfRows(inComponent: 0))
+                        .to(equal(3))
+                }
+                it("should display all currency codes") {
+                    let codes = ["SGD", "EUR", "USD", "AUD", "INR"]
+                    subject.viewModel.currencyCodes.accept(codes)
+                    expect(subject.toPickerView.numberOfRows(inComponent: 0))
+                        .to(equal(5))
+                }
+            }
+            
+            context("when from picker view is reloaded") {
+                it("should display all currency codes") {
+                    subject.viewModel.currencyCodes.accept(["SGD", "EUR", "USD", "INR"])
+                    expect(subject.fromPickerView.numberOfRows(inComponent: 0))
+                        .to(equal(4))
+                }
+                it("should display all currency codes") {
+                    let codes = ["SGD", "EUR", "USD", "AUD", "IDR", "INR"]
+                    subject.viewModel.currencyCodes.accept(codes)
+                    expect(subject.fromPickerView.numberOfRows(inComponent: 0))
+                        .to(equal(6))
+                }
+            }
+            context("when to currency code textfield is edited") {
+                beforeEach {
+                    let codes = ["SGD", "EUR", "USD", "AUD", "INR"]
+                    subject.viewModel.currencyCodes.accept(codes)
+                }
+                it("should update 'to' textfield with SGD code from picker selection") {
+                    selectRow(subject.toPickerView, row: 1)
+                    subject.toCurrencyTextField.sendActions(for: .editingDidEnd)
+                    expect(subject.toCurrencyCodeTextField.text).to(equal("EUR"))
+                }
+                it("should update 'to' textfield with AUD code from picker selection") {
+                    selectRow(subject.toPickerView, row: 3)
+                    subject.toCurrencyTextField.sendActions(for: .editingDidEnd)
+                    expect(subject.toCurrencyCodeTextField.text).to(equal("AUD"))
+                }
+                it("should update 'to' textfield with AUD code from picker selection") {
+                    selectRow(subject.toPickerView, row: 4)
+                    subject.toCurrencyTextField.sendActions(for: .editingDidEnd)
+                    expect(subject.toCurrencyCodeTextField.text).to(equal("INR"))
+                }
+                
+            }
+            context("when from currency code textfield is edited") {
+                beforeEach {
+                    let codes = ["IDR", "EUR", "USD", "AUD", "INR", "SGD", "DDD"]
+                    subject.viewModel.currencyCodes.accept(codes)
+                }
+                it("should update 'from' textfield with SGD code from picker selection") {
+                    selectRow(subject.fromPickerView, row: 0)
+                    subject.fromCurrencyCodeTextField.sendActions(for: .editingDidEnd)
+                    expect(subject.fromCurrencyCodeTextField.text).to(equal("IDR"))
+                }
+                it("should update 'from' textfield with AUD code from picker selection") {
+                    selectRow(subject.fromPickerView, row: 4)
+                    subject.fromCurrencyCodeTextField.sendActions(for: .editingDidEnd)
+                    expect(subject.fromCurrencyCodeTextField.text).to(equal("INR"))
+                }
+                it("should update 'from' textfield with AUD code from picker selection") {
+                    selectRow(subject.fromPickerView, row: 6)
+                    subject.fromCurrencyCodeTextField.sendActions(for: .editingDidEnd)
+                    expect(subject.fromCurrencyCodeTextField.text).to(equal("DDD"))
+                }
+            }
         }
     }
 }
-
