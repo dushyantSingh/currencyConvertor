@@ -21,6 +21,9 @@ class ConvertorViewModel {
                                                    date: ""))
     let latestRateRequest = PublishSubject<Void>()
     let currencyService: CurrencyServiceType
+    let fromCurrency = BehaviorRelay<String>(value: "")
+    let toCurrency = BehaviorRelay<String>(value: "")
+    
     private let disposeBag = DisposeBag()
    
     init(currencyService: CurrencyServiceType) {

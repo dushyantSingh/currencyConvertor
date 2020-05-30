@@ -127,8 +127,32 @@ class ConvertorViewControllerSpec: QuickSpec {
                         .to(equal("Failed"))
                 }
                 it("should show have cancel button") {
-                    subject.viewModel.events.onNext(.showConvertAlert)
+                    subject.viewModel.events.onNext(.showErrorAlert(message: "Failed"))
                     expect(mockAlertView.actions.count).to(equal(1))
+                }
+            }
+            context("when from currency textfield is edited") {
+                it("should update from currency in view model") {
+                    subject.fromCurrencyTextField.text = "100"
+                    subject.fromCurrencyTextField.sendActions(for: .editingDidEnd)
+                    expect(subject.viewModel.fromCurrency.value).to(equal("100"))
+                }
+                it("should update from currency in view model") {
+                    subject.fromCurrencyTextField.text = "200"
+                    subject.fromCurrencyTextField.sendActions(for: .editingDidEnd)
+                    expect(subject.viewModel.fromCurrency.value).to(equal("200"))
+                }
+            }
+            context("when to currency textfield is edited") {
+                it("should update to currency in view model") {
+                    subject.toCurrencyTextField.text = "400"
+                    subject.toCurrencyTextField.sendActions(for: .editingDidEnd)
+                    expect(subject.viewModel.toCurrency.value).to(equal("400"))
+                }
+                it("should update to currency in view model") {
+                    subject.toCurrencyTextField.text = "230"
+                    subject.toCurrencyTextField.sendActions(for: .editingDidEnd)
+                    expect(subject.viewModel.toCurrency.value).to(equal("230"))
                 }
             }
         }

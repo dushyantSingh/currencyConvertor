@@ -119,6 +119,8 @@
                     </view>
                     <connections>
                         <outlet property="convertButton" destination="2eW-an-Bpa" id="TMH-QV-Y3V"/>
+                        <outlet property="fromCurrencyTextField" destination="oKq-g3-5gc" id="iAR-dV-1u7"/>
+                        <outlet property="toCurrencyTextField" destination="RKP-yN-y38" id="mCu-Xd-fIJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kBM-iC-UU9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

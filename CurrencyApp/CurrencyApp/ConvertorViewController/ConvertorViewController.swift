@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import RxGesture
 
 class ConvertorViewController: UIViewController, ViewControllerProtocol {
     typealias ViewModelType = ConvertorViewModel
@@ -15,7 +16,9 @@ class ConvertorViewController: UIViewController, ViewControllerProtocol {
     var alertPresenter: AlertViewPresenterType = AlertViewPresenter()
     
     @IBOutlet weak var convertButton: UIButton!
-    
+    @IBOutlet weak var fromCurrencyTextField: UITextField!
+    @IBOutlet weak var toCurrencyTextField: UITextField!
+
     private let disposeBag = DisposeBag()
 
     override func viewDidLoad() {
@@ -29,6 +32,30 @@ extension ConvertorViewController {
         self.title = viewModel.title
         convertButton.rx.tap
             .bind(to: viewModel.convertButtonClicked)
+            .disposed(by: disposeBag)
+        
+        view.rx.tapGesture()
+            .when(.recognized)
+            .subscribe(onNext: {[weak self] _ in
+                self?.view.endEditing(true) })
+            .disposed(by: disposeBag)
+        
+        viewModel.fromCurrency.asObservable()
+            .bind(to: self.fromCurrencyTextField.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.toCurrency.asObservable()
+            .bind(to: self.toCurrencyTextField.rx.text)
+            .disposed(by: disposeBag)
+        
+        fromCurrencyTextField.rx.text
+            .orEmpty
+            .bind(to: viewModel.fromCurrency)
+            .disposed(by: disposeBag)
+        
+        toCurrencyTextField.rx.text
+            .orEmpty
+            .bind(to: viewModel.toCurrency)
             .disposed(by: disposeBag)
     }
     
