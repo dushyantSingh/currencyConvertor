@@ -117,6 +117,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jPr-ZL-tm6"/>
                     </view>
+                    <connections>
+                        <outlet property="convertButton" destination="2eW-an-Bpa" id="TMH-QV-Y3V"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kBM-iC-UU9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

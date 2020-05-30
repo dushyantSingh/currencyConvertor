@@ -7,11 +7,14 @@
 //
 
 import UIKit
+import RxSwift
 
 class ConvertorViewController: UIViewController, ViewControllerProtocol {
     typealias ViewModelType = ConvertorViewModel
        var viewModel: ConvertorViewModel!
     
+    @IBOutlet weak var convertButton: UIButton!
+    private let disposeBag = DisposeBag()
     override func viewDidLoad() {
         setupUI()
     }
@@ -19,5 +22,8 @@ class ConvertorViewController: UIViewController, ViewControllerProtocol {
 extension ConvertorViewController {
     private func setupUI() {
         self.title = viewModel.title
+        convertButton.rx.tap
+            .bind(to: viewModel.convertButtonClicked)
+            .disposed(by: disposeBag)
     }
 }
