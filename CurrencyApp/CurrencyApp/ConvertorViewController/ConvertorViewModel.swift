@@ -14,9 +14,11 @@ enum ConvertViewModelEvents {
 }
 class ConvertorViewModel {
     let title = "Convert"
-    let convertButtonClicked = PublishSubject<Void>()
     
+    let convertButtonClicked = PublishSubject<Void>()
+    let convertConfirmed = PublishSubject<Void>()
     let events = PublishSubject<ConvertViewModelEvents>()
+    
     private let disposeBag = DisposeBag()
    
     init() {
@@ -30,5 +32,10 @@ extension ConvertorViewModel {
             .map{.showConvertAlert}
             .bind(to: events)
             .disposed(by: disposeBag)
+        
+        convertConfirmed.asObservable().subscribe(onNext: {_ in
+            print("Calculate conversion")
+        })
+        .disposed(by: disposeBag)
     }
 }

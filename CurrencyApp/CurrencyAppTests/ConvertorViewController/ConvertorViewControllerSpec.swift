@@ -40,6 +40,66 @@ class ConvertorViewControllerSpec: QuickSpec {
                     expect(convertButtonTriggered).to(beTrue())
                 }
             }
+            context("when show alert event is pushed") {
+                var mockAlertView: MockAlertView!
+                beforeEach {
+                    mockAlertView = MockAlertView()
+                    subject.alertPresenter = mockAlertView
+                }
+                it("should show alert view") {
+                    subject.viewModel.events.onNext(.showConvertAlert)
+                    expect(mockAlertView.isAlertViewPresented).to(beTrue())
+                }
+                it("should show alert view title") {
+                    subject.viewModel.events.onNext(.showConvertAlert)
+                    expect(mockAlertView.title).to(equal("Alert"))
+                }
+                it("should show alert view message") {
+                    subject.viewModel.events.onNext(.showConvertAlert)
+                    expect(mockAlertView.message)
+                        .to(equal("Are you sure you want to convert?"))
+                }
+                it("should show have actions") {
+                    subject.viewModel.events.onNext(.showConvertAlert)
+                    expect(mockAlertView.actions.count).to(equal(2))
+                }
+                it("should show trigger confirm conversion") {
+                    subject.viewModel
+                        .events
+                        .onNext(.showConvertAlert)
+                    var convertConfirmTriggered = false
+                    subject.viewModel
+                        .convertConfirmed
+                        .subscribe(onNext: {_ in
+                            convertConfirmTriggered = true
+                        })
+                        .disposed(by: disposeBag)
+                    
+                    mockAlertView.convertButtonClicked
+                        .onNext(.alertButtonTapped(buttonIndex: 1))
+                
+                    expect(convertConfirmTriggered).to(beTrue())
+                }
+            }
         }
+    }
+}
+
+class MockAlertView: AlertViewPresenterType {
+    var isAlertViewPresented = false
+    var title = ""
+    var message = ""
+    var actions: [AlertModel] = []
+    var convertButtonClicked = PublishSubject<AlertModelEvent>()
+    
+    func present(title: String,
+                 message: String,
+                 actions: [AlertModel],
+                 viewController: UIViewController) -> Observable<AlertModelEvent> {
+        isAlertViewPresented = true
+        self.title = title
+        self.message = message
+        self.actions = actions
+        return convertButtonClicked.asObservable()
     }
 }
