@@ -14,7 +14,8 @@ class MainViewModelCoordinator {
 
 extension MainViewModelCoordinator {
     func createStartUpViewModel() -> ConvertorViewModel {
-        let viewModel = ConvertorViewModel()
+        let currencyService = CurrencyService()
+        let viewModel = ConvertorViewModel(currencyService: currencyService)
         return viewModel
     }
 }

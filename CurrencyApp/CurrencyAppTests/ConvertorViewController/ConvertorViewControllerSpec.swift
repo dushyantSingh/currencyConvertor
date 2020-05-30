@@ -16,16 +16,35 @@ class ConvertorViewControllerSpec: QuickSpec {
     override func spec() {
         describe("ConvertorViewController Test") {
             var subject: ConvertorViewController!
+            var mockCurrencyService: MockCurrencyService!
             var disposeBag: DisposeBag!
+            
             beforeEach {
                 subject = UIViewController.make(viewController: ConvertorViewController.self)
+                mockCurrencyService = MockCurrencyService()
                 disposeBag = DisposeBag()
-                subject.viewModel = ConvertorViewModel()
-                 _ = subject.view
+                subject.viewModel = ConvertorViewModel(currencyService: mockCurrencyService)
+                _ = subject.view
             }
             context("when view loads") {
                 it("should have title") {
                     expect(subject.title).to(equal("Convert"))
+                }
+                it("should latestRateRequest called") {
+                    var isLatestRateRequestCalled = false
+                    subject.viewModel
+                        .latestRateRequest
+                        .subscribe(onNext: {_ in
+                            isLatestRateRequestCalled = true
+                        })
+                        .disposed(by: disposeBag)
+                    subject.viewDidLoad()
+                    expect(isLatestRateRequestCalled).to(beTrue())
+                }
+                it("should retrieve called") {
+                    mockCurrencyService.isRetrieveCalled = false
+                    subject.viewDidLoad()
+                    expect(mockCurrencyService.isRetrieveCalled).to(beTrue())
                 }
             }
             context("when convert button is clicked") {
@@ -77,29 +96,42 @@ class ConvertorViewControllerSpec: QuickSpec {
                     
                     mockAlertView.convertButtonClicked
                         .onNext(.alertButtonTapped(buttonIndex: 1))
-                
+                    
                     expect(convertConfirmTriggered).to(beTrue())
+                }
+            }
+            
+            context("when show error alert event is pushed") {
+                var mockAlertView: MockAlertView!
+                beforeEach {
+                    mockAlertView = MockAlertView()
+                    subject.alertPresenter = mockAlertView
+                }
+                it("should show alert view") {
+                    subject.viewModel
+                        .events
+                        .onNext(.showErrorAlert(message: "Failed"))
+                    expect(mockAlertView.isAlertViewPresented).to(beTrue())
+                }
+                it("should show alert view title") {
+                    subject.viewModel
+                        .events
+                        .onNext(.showErrorAlert(message: "Failed"))
+                    expect(mockAlertView.title).to(equal("Error"))
+                }
+                it("should show alert view message") {
+                    subject.viewModel
+                        .events
+                        .onNext(.showErrorAlert(message: "Failed"))
+                    expect(mockAlertView.message)
+                        .to(equal("Failed"))
+                }
+                it("should show have cancel button") {
+                    subject.viewModel.events.onNext(.showConvertAlert)
+                    expect(mockAlertView.actions.count).to(equal(1))
                 }
             }
         }
     }
 }
 
-class MockAlertView: AlertViewPresenterType {
-    var isAlertViewPresented = false
-    var title = ""
-    var message = ""
-    var actions: [AlertModel] = []
-    var convertButtonClicked = PublishSubject<AlertModelEvent>()
-    
-    func present(title: String,
-                 message: String,
-                 actions: [AlertModel],
-                 viewController: UIViewController) -> Observable<AlertModelEvent> {
-        isAlertViewPresented = true
-        self.title = title
-        self.message = message
-        self.actions = actions
-        return convertButtonClicked.asObservable()
-    }
-}

@@ -16,16 +16,18 @@ class ConvertorViewModelSpec: QuickSpec {
     override func spec() {
         describe("ConvertorViewModel Test") {
             var subject: ConvertorViewModel!
+            var mockCurrencyService: MockCurrencyService!
             var disposeBag: DisposeBag!
             beforeEach {
-                subject = ConvertorViewModel()
+                mockCurrencyService = MockCurrencyService()
+                subject = ConvertorViewModel(currencyService: mockCurrencyService)
                 disposeBag = DisposeBag()
             }
             context("When convert button is triggered") {
                 it("should emit event showConvertAlert") {
                     var showConvertAlertEvent = false
                     subject.events.subscribe(onNext: { event in
-                        if case event = ConvertViewModelEvents.showConvertAlert {
+                        if case .showConvertAlert = event {
                             showConvertAlertEvent = true
                         }
                     })
@@ -34,6 +36,38 @@ class ConvertorViewModelSpec: QuickSpec {
                     expect(showConvertAlertEvent).to(beTrue())
                 }
             }
+            context("When latest exchange rate is triggered") {
+                it("should call retrieve") {
+                    mockCurrencyService.isRetrieveCalled = false
+                    subject.latestRateRequest.onNext(())
+                    expect(mockCurrencyService.isRetrieveCalled).to(beTrue())
+                }
+                it("should retrieve latest exchange rate") {
+                    let mockData = ExchangeModel(rates: ["SGD" : 1.5], base: "EUR", date: "Today")
+                    subject.latestRateRequest.onNext(())
+                    mockCurrencyService.onRetrieve.onNext(mockData)
+                    expect(subject.rates.value.base).toEventually(equal("EUR"))
+                    expect(subject.rates.value.date).toEventually(equal("Today"))
+                    expect(subject.rates.value.rates.count).toEventually(equal(1))
+                    expect(subject.rates.value.rates["SGD"]).toEventually(equal(1.5))
+                }
+                it("should emit show error alert event when retrieve fails") {
+                    let error = MockError()
+                    subject.latestRateRequest.onNext(())
+                    var isShowErrorAlertEvent = false
+                    subject.events
+                        .subscribe(onNext: { event in
+                            if case .showErrorAlert = event {
+                                isShowErrorAlertEvent = true
+                        }})
+                        .disposed(by: disposeBag)
+                    mockCurrencyService.onRetrieve.onError(error)
+                    expect(isShowErrorAlertEvent).toEventually(beTrue())
+                }
+            }
         }
     }
+}
+
+class MockError: Error {
 }
