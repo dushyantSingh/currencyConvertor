@@ -21,6 +21,7 @@ extension MainViewCoordinator {
     private func startApplication() {
         let viewModel = viewModelCoordinator.createStartUpViewModel()
         let viewController = UIViewController.make(viewController: ConvertorViewController.self)
+        viewController.viewModel = viewModel
         self.navigationController = UINavigationController.init(rootViewController: viewController)
     }
 }

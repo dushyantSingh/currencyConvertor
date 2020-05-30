@@ -9,4 +9,5 @@
 import Foundation
 
 class ConvertorViewModel {
+    let title = "Convert"
 }

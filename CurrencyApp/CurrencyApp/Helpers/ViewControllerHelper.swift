@@ -20,3 +20,8 @@ extension UIViewController {
         return viewController
     }
 }
+
+protocol ViewControllerProtocol {
+    associatedtype ViewModelType
+    var viewModel: ViewModelType! { get set }
+}
