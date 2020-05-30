@@ -23,6 +23,8 @@
 		44D5019324817DB0008DEC05 /* CurrencyRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D5019224817DB0008DEC05 /* CurrencyRequest.swift */; };
 		44D50199248250FF008DEC05 /* ConvertorViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D50198248250FF008DEC05 /* ConvertorViewControllerSpec.swift */; };
 		44D5019B24825E2E008DEC05 /* ConvertViewModelSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D5019A24825E2E008DEC05 /* ConvertViewModelSpec.swift */; };
+		44D5019D24826643008DEC05 /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D5019C24826643008DEC05 /* AlertModel.swift */; };
+		44D5019F24826E50008DEC05 /* AlertViewPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D5019E24826E50008DEC05 /* AlertViewPresenter.swift */; };
 		55CCC47EDBF52346AD2551CD /* Pods_CurrencyAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 358BB5A1F19004F6C768AEAB /* Pods_CurrencyAppTests.framework */; };
 		DC2A231C2F1F17DA4B3BB7EB /* Pods_CurrencyApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEBA12C20A059CA200627042 /* Pods_CurrencyApp.framework */; };
 /* End PBXBuildFile section */
@@ -59,6 +61,8 @@
 		44D5019224817DB0008DEC05 /* CurrencyRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyRequest.swift; sourceTree = "<group>"; };
 		44D50198248250FF008DEC05 /* ConvertorViewControllerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertorViewControllerSpec.swift; sourceTree = "<group>"; };
 		44D5019A24825E2E008DEC05 /* ConvertViewModelSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertViewModelSpec.swift; sourceTree = "<group>"; };
+		44D5019C24826643008DEC05 /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
+		44D5019E24826E50008DEC05 /* AlertViewPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewPresenter.swift; sourceTree = "<group>"; };
 		4A43AB9A6EAB247AC9BCDD88 /* Pods-CurrencyApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyApp.debug.xcconfig"; path = "Target Support Files/Pods-CurrencyApp/Pods-CurrencyApp.debug.xcconfig"; sourceTree = "<group>"; };
 		96B266A094FE9521E9AA2D41 /* Pods-CurrencyApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyApp.release.xcconfig"; path = "Target Support Files/Pods-CurrencyApp/Pods-CurrencyApp.release.xcconfig"; sourceTree = "<group>"; };
 		BEBA12C20A059CA200627042 /* Pods_CurrencyApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CurrencyApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -146,6 +150,8 @@
 			isa = PBXGroup;
 			children = (
 				44D501892481239F008DEC05 /* ViewControllerHelper.swift */,
+				44D5019E24826E50008DEC05 /* AlertViewPresenter.swift */,
+				44D5019C24826643008DEC05 /* AlertModel.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -380,6 +386,7 @@
 				44D5017F24811E47008DEC05 /* ConvertorViewController.swift in Sources */,
 				44D5018124811E5F008DEC05 /* ConvertorViewModel.swift in Sources */,
 				44D5018D24817AEC008DEC05 /* ExchangeModel.swift in Sources */,
+				44D5019D24826643008DEC05 /* AlertModel.swift in Sources */,
 				44D5015C248109D8008DEC05 /* AppDelegate.swift in Sources */,
 				44D5019324817DB0008DEC05 /* CurrencyRequest.swift in Sources */,
 				44D5018F24817BD4008DEC05 /*  CurrencyService.swift in Sources */,
@@ -388,6 +395,7 @@
 				44D50187248120DA008DEC05 /* MainViewModelCoordinator.swift in Sources */,
 				44D5015E248109D8008DEC05 /* SceneDelegate.swift in Sources */,
 				44D5019124817D46008DEC05 /* Environment.swift in Sources */,
+				44D5019F24826E50008DEC05 /* AlertViewPresenter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
