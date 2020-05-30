@@ -59,10 +59,83 @@ class ConvertorViewModelSpec: QuickSpec {
                         .subscribe(onNext: { event in
                             if case .showErrorAlert = event {
                                 isShowErrorAlertEvent = true
-                        }})
+                            }})
                         .disposed(by: disposeBag)
                     mockCurrencyService.onRetrieve.onError(error)
                     expect(isShowErrorAlertEvent).toEventually(beTrue())
+                }
+            }
+            context("When calculation is triggered") {
+                beforeEach {
+                    subject.exchangeRates.accept(MockExchangeRateFactory.mockRates)
+                }
+                context("when from currency is changed") {
+                    beforeEach {
+                        subject.toCurrencyCode.accept("SGD")
+                        subject.fromCurrencyCode.accept("USD")
+                        subject.toCurrency.accept("")
+                        subject.fromCurrency.accept("")
+                        subject.skipCalculation.accept(false)
+                    }
+                    it("should convert 100 USD to SGD") {
+                        subject.fromCurrency.accept("100")
+                        expect(subject.toCurrency.value).to(equal("141.80"))
+                    }
+                    it("should convert 250 USD to SGD") {
+                        subject.fromCurrency.accept("250")
+                        expect(subject.toCurrency.value).to(equal("354.51"))
+                    }
+                }
+                context("when from currency code is changed") {
+                    beforeEach {
+                        subject.toCurrencyCode.accept("SGD")
+                        subject.fromCurrencyCode.accept("")
+                        subject.toCurrency.accept("")
+                        subject.fromCurrency.accept("1000")
+                        subject.skipCalculation.accept(false)
+                    }
+                    it("should convert 1000 IDR to SGD") {
+                        subject.fromCurrencyCode.accept("IDR")
+                        expect(subject.toCurrency.value).to(equal("0.10"))
+                    }
+                    it("should convert 1000 INR to SGD") {
+                        subject.fromCurrencyCode.accept("INR")
+                        expect(subject.toCurrency.value).to(equal("18.72"))
+                    }
+                }
+                context("when to currency code is changed") {
+                    beforeEach {
+                        subject.toCurrencyCode.accept("")
+                        subject.fromCurrencyCode.accept("EUR")
+                        subject.toCurrency.accept("")
+                        subject.fromCurrency.accept("90")
+                        subject.skipCalculation.accept(false)
+                    }
+                    it("should convert 90 EUR to SGD") {
+                        subject.toCurrencyCode.accept("SGD")
+                        expect(subject.toCurrency.value).to(equal("140.59"))
+                    }
+                    it("should convert 90 EUR to INR") {
+                        subject.toCurrencyCode.accept("INR")
+                        expect(subject.toCurrency.value).to(equal("7511.71"))
+                    }
+                }
+                context("when to currency is changed") {
+                    beforeEach {
+                        subject.toCurrencyCode.accept("SEK")
+                        subject.fromCurrencyCode.accept("SGD")
+                        subject.toCurrency.accept("")
+                        subject.fromCurrency.accept("")
+                        subject.skipCalculation.accept(true)
+                    }
+                    it("should convert 120 SEK to SGD") {
+                        subject.toCurrency.accept("120")
+                        expect(subject.fromCurrency.value).to(equal("17.77"))
+                    }
+                    it("should convert 250 SEK to SGD") {
+                        subject.toCurrency.accept("250")
+                        expect(subject.fromCurrency.value).to(equal("37.02"))
+                    }
                 }
             }
         }

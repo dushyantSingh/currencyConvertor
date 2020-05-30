@@ -189,7 +189,7 @@ class ConvertorViewControllerSpec: QuickSpec {
                         .to(equal(6))
                 }
             }
-            fcontext("when to currency code textfield is edited") {
+            context("when to currency code textfield is edited") {
                 beforeEach {
                     let codes = ["SGD", "EUR", "USD", "AUD", "INR"]
                     subject.viewModel.currencyCodes.accept(codes)
@@ -214,7 +214,7 @@ class ConvertorViewControllerSpec: QuickSpec {
                 }
                 
             }
-            fcontext("when from currency code textfield is edited") {
+            context("when from currency code textfield is edited") {
                 beforeEach {
                     let codes = ["IDR", "EUR", "USD", "AUD", "INR", "SGD", "DDD"]
                     subject.viewModel.currencyCodes.accept(codes)
@@ -236,6 +236,16 @@ class ConvertorViewControllerSpec: QuickSpec {
                     subject.fromCurrencyCodeTextField.sendActions(for: .editingDidEnd)
                     expect(subject.fromCurrencyCodeTextField.text).to(equal("DDD"))
                     expect(subject.viewModel.fromCurrencyCode.value).to(equal("DDD"))
+                }
+            }
+            context("when to currency textfield is editing") {
+                it("should update skip calculation in view model") {
+                    subject.toCurrencyTextField.sendActions(for: .editingDidBegin)
+                    expect(subject.viewModel.skipCalculation.value).to(beTrue())
+                }
+                it("should update skip calculation in view model") {
+                    subject.toCurrencyTextField.sendActions(for: .editingDidEnd)
+                    expect(subject.viewModel.skipCalculation.value).to(beFalse())
                 }
             }
         }

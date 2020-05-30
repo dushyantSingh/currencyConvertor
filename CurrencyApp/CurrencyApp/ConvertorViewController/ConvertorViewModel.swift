@@ -8,7 +8,7 @@
 
 import RxSwift
 import RxCocoa
-
+import RxOptional
 
 class ConvertorViewModel {
     let title = "Convert"
@@ -26,10 +26,13 @@ class ConvertorViewModel {
     let fromCurrencyCode: BehaviorRelay<String> = BehaviorRelay<String>(value: "")
     let toCurrencyCode: BehaviorRelay<String> = BehaviorRelay<String>(value: "")
     
+    let skipCalculation: BehaviorRelay<Bool> = BehaviorRelay<Bool>(value: false)
+    
     private let disposeBag = DisposeBag()
    
     init(currencyService: CurrencyServiceType) {
         self.currencyService = currencyService
+        setupCalculation()
         setupEvents()
         setupFetch()
     }
@@ -67,5 +70,38 @@ extension ConvertorViewModel {
                 onError: { error in
                     self.events.onNext(.showErrorAlert(message: error.localizedDescription))})
             .disposed(by: disposeBag)
+    }
+    private func setupCalculation() {
+        Observable.combineLatest(self.fromCurrency,
+                                 self.fromCurrencyCode,
+                                 self.toCurrencyCode,
+                                 self.exchangeRates)
+            .filter { _ in !self.skipCalculation.value }
+            .calculateExchangeToCurrency()
+            .bind(to: self.toCurrency)
+            .disposed(by: disposeBag)
+        
+        self.toCurrency.asObservable()
+            .filter { _ in self.skipCalculation.value }
+            .map {($0,
+                   self.toCurrencyCode.value,
+                   self.fromCurrencyCode.value,
+                   self.exchangeRates.value) }
+            .calculateExchangeToCurrency()
+            .bind(to: self.fromCurrency)
+            .disposed(by: disposeBag)
+    }
+}
+
+extension Observable where Element == (String, String, String, [String: Double]) {
+    func calculateExchangeToCurrency() -> Observable<String> {
+        return map { value1, value2, value3, rates -> (Double, Double, Double)? in
+            guard let doubleValue1 = Double(value1),
+                let doubleValue2 =  rates[value2],
+                let doubleValue3 = rates[value3] else {
+                    return nil }
+            return (doubleValue1, doubleValue2, doubleValue3) }
+            .filterNil()
+            .map { String(format:"%.2f", ($0.0/$0.1) * $0.2) }
     }
 }

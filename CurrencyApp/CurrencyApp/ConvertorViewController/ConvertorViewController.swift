@@ -27,9 +27,11 @@ class ConvertorViewController: UIViewController, ViewControllerProtocol {
     
     override func viewDidLoad() {
         setupUI()
+        setupEvent()
+        
         setupCurrencyTextField()
         setupCurrencyCodeTextFields()
-        setupEvent()
+       
         setupFromPickerView()
         setupToPickerView()
         fetchExchangeRates()
@@ -38,6 +40,7 @@ class ConvertorViewController: UIViewController, ViewControllerProtocol {
 extension ConvertorViewController {
     private func setupUI() {
         self.title = viewModel.title
+        
         convertButton.rx.tap
             .bind(to: viewModel.convertButtonClicked)
             .disposed(by: disposeBag)
@@ -66,6 +69,18 @@ extension ConvertorViewController {
         toCurrencyTextField.rx.text
             .orEmpty
             .bind(to: viewModel.toCurrency)
+            .disposed(by: disposeBag)
+        
+        toCurrencyTextField.rx
+            .controlEvent([.editingDidBegin])
+            .map { true }
+            .bind(to: self.viewModel.skipCalculation)
+            .disposed(by: disposeBag)
+        
+        toCurrencyTextField.rx
+            .controlEvent([.editingDidEnd])
+            .map { false }
+            .bind(to: self.viewModel.skipCalculation)
             .disposed(by: disposeBag)
         
         toCurrencyCodeTextField.inputView = toPickerView
