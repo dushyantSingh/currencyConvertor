@@ -12,16 +12,19 @@ import RxCocoa
 
 class ConvertorViewModel {
     let title = "Convert"
+    let currencyService: CurrencyServiceType
     
     let convertButtonClicked = PublishSubject<Void>()
     let convertConfirmed = PublishSubject<Void>()
+    let latestRateRequest = PublishSubject<Void>()
     let events = PublishSubject<ConvertViewModelEvents>()
+    
     let exchangeRates: BehaviorRelay<[String: Double]> = BehaviorRelay(value: [:])
     let currencyCodes: BehaviorRelay<[String]> = BehaviorRelay(value: [])
-    let latestRateRequest = PublishSubject<Void>()
-    let currencyService: CurrencyServiceType
-    let fromCurrency = BehaviorRelay<String>(value: "")
-    let toCurrency = BehaviorRelay<String>(value: "")
+    let fromCurrency: BehaviorRelay<String> = BehaviorRelay<String>(value: "")
+    let toCurrency: BehaviorRelay<String> = BehaviorRelay<String>(value: "")
+    let fromCurrencyCode: BehaviorRelay<String> = BehaviorRelay<String>(value: "")
+    let toCurrencyCode: BehaviorRelay<String> = BehaviorRelay<String>(value: "")
     
     private let disposeBag = DisposeBag()
    
@@ -57,7 +60,9 @@ extension ConvertorViewModel {
                     var exchangeRates = rates.rates
                     exchangeRates[rates.base] = 1.0
                     self.exchangeRates.accept(exchangeRates)
-                    self.currencyCodes.accept(exchangeRates.keys.sorted()) },
+                    self.currencyCodes.accept(exchangeRates.keys.sorted())
+                    self.fromCurrencyCode.accept(rates.base)
+                    self.toCurrencyCode.accept(rates.base) },
                 
                 onError: { error in
                     self.events.onNext(.showErrorAlert(message: error.localizedDescription))})

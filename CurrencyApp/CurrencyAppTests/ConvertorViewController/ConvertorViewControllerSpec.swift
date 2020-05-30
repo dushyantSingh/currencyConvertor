@@ -189,29 +189,32 @@ class ConvertorViewControllerSpec: QuickSpec {
                         .to(equal(6))
                 }
             }
-            context("when to currency code textfield is edited") {
+            fcontext("when to currency code textfield is edited") {
                 beforeEach {
                     let codes = ["SGD", "EUR", "USD", "AUD", "INR"]
                     subject.viewModel.currencyCodes.accept(codes)
                 }
                 it("should update 'to' textfield with SGD code from picker selection") {
                     selectRow(subject.toPickerView, row: 1)
-                    subject.toCurrencyTextField.sendActions(for: .editingDidEnd)
+                    subject.toCurrencyCodeTextField.sendActions(for: .editingDidEnd)
                     expect(subject.toCurrencyCodeTextField.text).to(equal("EUR"))
+                    expect(subject.viewModel.toCurrencyCode.value).to(equal("EUR"))
                 }
                 it("should update 'to' textfield with AUD code from picker selection") {
                     selectRow(subject.toPickerView, row: 3)
-                    subject.toCurrencyTextField.sendActions(for: .editingDidEnd)
+                    subject.toCurrencyCodeTextField.sendActions(for: .editingDidEnd)
                     expect(subject.toCurrencyCodeTextField.text).to(equal("AUD"))
+                    expect(subject.viewModel.toCurrencyCode.value).to(equal("AUD"))
                 }
                 it("should update 'to' textfield with AUD code from picker selection") {
                     selectRow(subject.toPickerView, row: 4)
-                    subject.toCurrencyTextField.sendActions(for: .editingDidEnd)
+                    subject.toCurrencyCodeTextField.sendActions(for: .editingDidEnd)
                     expect(subject.toCurrencyCodeTextField.text).to(equal("INR"))
+                    expect(subject.viewModel.toCurrencyCode.value).to(equal("INR"))
                 }
                 
             }
-            context("when from currency code textfield is edited") {
+            fcontext("when from currency code textfield is edited") {
                 beforeEach {
                     let codes = ["IDR", "EUR", "USD", "AUD", "INR", "SGD", "DDD"]
                     subject.viewModel.currencyCodes.accept(codes)
@@ -220,16 +223,19 @@ class ConvertorViewControllerSpec: QuickSpec {
                     selectRow(subject.fromPickerView, row: 0)
                     subject.fromCurrencyCodeTextField.sendActions(for: .editingDidEnd)
                     expect(subject.fromCurrencyCodeTextField.text).to(equal("IDR"))
+                    expect(subject.viewModel.fromCurrencyCode.value).to(equal("IDR"))
                 }
                 it("should update 'from' textfield with AUD code from picker selection") {
                     selectRow(subject.fromPickerView, row: 4)
                     subject.fromCurrencyCodeTextField.sendActions(for: .editingDidEnd)
                     expect(subject.fromCurrencyCodeTextField.text).to(equal("INR"))
+                    expect(subject.viewModel.fromCurrencyCode.value).to(equal("INR"))
                 }
                 it("should update 'from' textfield with AUD code from picker selection") {
                     selectRow(subject.fromPickerView, row: 6)
                     subject.fromCurrencyCodeTextField.sendActions(for: .editingDidEnd)
                     expect(subject.fromCurrencyCodeTextField.text).to(equal("DDD"))
+                    expect(subject.viewModel.fromCurrencyCode.value).to(equal("DDD"))
                 }
             }
         }

@@ -27,6 +27,8 @@ class ConvertorViewController: UIViewController, ViewControllerProtocol {
     
     override func viewDidLoad() {
         setupUI()
+        setupCurrencyTextField()
+        setupCurrencyCodeTextFields()
         setupEvent()
         setupFromPickerView()
         setupToPickerView()
@@ -45,7 +47,9 @@ extension ConvertorViewController {
             .subscribe(onNext: {[weak self] _ in
                 self?.view.endEditing(true) })
             .disposed(by: disposeBag)
-        
+    }
+    
+    private func setupCurrencyTextField() {
         viewModel.fromCurrency.asObservable()
             .bind(to: self.fromCurrencyTextField.rx.text)
             .disposed(by: disposeBag)
@@ -68,6 +72,26 @@ extension ConvertorViewController {
         fromCurrencyCodeTextField.inputView = fromPickerView
     }
     
+    private func setupCurrencyCodeTextFields() {
+        viewModel.fromCurrencyCode.asObservable()
+            .bind(to: self.fromCurrencyCodeTextField.rx.text)
+            .disposed(by: disposeBag)
+        
+        viewModel.toCurrencyCode.asObservable()
+            .bind(to: self.toCurrencyCodeTextField.rx.text)
+            .disposed(by: disposeBag)
+        
+        fromCurrencyCodeTextField.rx.text
+            .orEmpty
+            .bind(to: viewModel.fromCurrencyCode)
+            .disposed(by: disposeBag)
+        
+        toCurrencyCodeTextField.rx.text
+            .orEmpty
+            .bind(to: viewModel.toCurrencyCode)
+            .disposed(by: disposeBag)
+    }
+
     private func setupEvent() {
         viewModel.events
             .flatMap { [weak self] event -> Observable<AlertModelEvent> in
@@ -117,7 +141,7 @@ extension ConvertorViewController {
             .bind(to: self.toPickerView.rx.itemTitles) {$1}
             .disposed(by: disposeBag)
         
-        self.toPickerView.rx.itemSelected.debug("item")
+        self.toPickerView.rx.itemSelected
             .map { [weak self] selected in
                 return self?.viewModel.currencyCodes.value[selected.row]}
             .bind(to: self.toCurrencyCodeTextField.rx.text)
