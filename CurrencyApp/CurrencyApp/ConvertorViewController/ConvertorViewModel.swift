@@ -92,16 +92,3 @@ extension ConvertorViewModel {
             .disposed(by: disposeBag)
     }
 }
-
-extension Observable where Element == (String, String, String, [String: Double]) {
-    func calculateExchangeToCurrency() -> Observable<String> {
-        return map { value1, value2, value3, rates -> (Double, Double, Double)? in
-            guard let doubleValue1 = Double(value1),
-                let doubleValue2 =  rates[value2],
-                let doubleValue3 = rates[value3] else {
-                    return nil }
-            return (doubleValue1, doubleValue2, doubleValue3) }
-            .filterNil()
-            .map { String(format:"%.2f", ($0.0/$0.1) * $0.2) }
-    }
-}
