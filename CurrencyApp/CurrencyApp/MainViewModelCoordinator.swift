@@ -16,7 +16,9 @@ class MainViewModelCoordinator {
 extension MainViewModelCoordinator {
     func createStartUpViewModel() -> ConvertorViewModel {
         let currencyService = CurrencyService()
-        let viewModel = ConvertorViewModel(currencyService: currencyService)
+        let transactionDb = TransactionDb.shared
+        let viewModel = ConvertorViewModel(currencyService: currencyService,
+                                           transactionDB: transactionDb)
         self.setup(convertorViewModel: viewModel)
             .bind(to: self.navigationAction)
             .disposed(by: disposeBag)

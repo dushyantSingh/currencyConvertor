@@ -13,6 +13,7 @@ import RxOptional
 class ConvertorViewModel {
     let title = "Convert"
     let currencyService: CurrencyServiceType
+    let transactionDB: RealmDbType
     
     let convertButtonClicked = PublishSubject<Void>()
     let convertConfirmed = PublishSubject<Void>()
@@ -33,9 +34,11 @@ class ConvertorViewModel {
    
     private  var areFieldsValid: Bool {
         return  !(self.fromCurrencyCode.value.isEmpty ||
-            self.fromCurrency.value.isEmpty ||
+            self.fromCurrency.value.isEmpty   ||
             self.toCurrencyCode.value.isEmpty ||
-            self.toCurrency.value.isEmpty)
+            self.toCurrency.value.isEmpty) &&
+            (Double(self.fromCurrency.value) != nil) &&
+            (Double(self.toCurrency.value) != nil)
     }
     private var convertAlertMessage: String {
         if areFieldsValid {
@@ -44,8 +47,27 @@ class ConvertorViewModel {
         return "Please fill all fields before conversion."
     }
     
-    init(currencyService: CurrencyServiceType) {
+    private var currentTransactionModel: TransactionModel {
+        let id = self.transactionDB.initializeId()
+        guard let doubleFromCurrency = Double(self.fromCurrency.value),
+        let doubleToCurrency = Double(self.toCurrency.value) else {
+          fatalError("Currency value found nil while unwrapping")
+        }
+        return  TransactionModel(id: id,
+                                transactionId: "CVRT\(id)",
+                                transactionDate: Date(),
+                                fromCurrencyCode: self.fromCurrencyCode.value,
+                                fromCurrency: doubleFromCurrency,
+                                toCurrencyCode: self.toCurrencyCode.value,
+                                toCurrency: doubleToCurrency,
+                                exchangeRate: doubleToCurrency/doubleFromCurrency)
+    }
+    
+    init(currencyService: CurrencyServiceType,
+         transactionDB: RealmDbType) {
+        self.transactionDB = transactionDB
         self.currencyService = currencyService
+        
         setupCalculation()
         setupEvents()
         setupFetch()
@@ -72,8 +94,12 @@ extension ConvertorViewModel {
             .disposed(by: disposeBag)
         
         convertConfirmed.asObservable()
-            .subscribe(onNext: {_ in
-                print("Calculate conversion") })
+            .subscribe(onNext: { [weak self]_ in
+                guard let self = self else { return }
+                let transactionModel = self.currentTransactionModel
+                let transactionObject = TransactionObject(transactionModel: transactionModel)
+                self.transactionDB.save(object: transactionObject)
+            })
             .disposed(by: disposeBag)
     }
     

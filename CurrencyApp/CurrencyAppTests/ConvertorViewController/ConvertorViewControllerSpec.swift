@@ -16,14 +16,17 @@ class ConvertorViewControllerSpec: QuickSpec {
         describe("ConvertorViewController Test") {
             var subject: ConvertorViewController!
             var mockCurrencyService: MockCurrencyService!
+            var mockDb: MockTransactionDb!
             var disposeBag: DisposeBag!
             
             beforeEach {
                 subject = UIViewController.make(viewController: ConvertorViewController.self)
                 mockCurrencyService = MockCurrencyService()
+                mockDb = MockTransactionDb()
                 disposeBag = DisposeBag()
                 
-                subject.viewModel = ConvertorViewModel(currencyService: mockCurrencyService)
+                subject.viewModel = ConvertorViewModel(currencyService: mockCurrencyService,
+                                                       transactionDB: mockDb)
                 _ = subject.view
             }
             
@@ -100,6 +103,8 @@ class ConvertorViewControllerSpec: QuickSpec {
                         .events
                         .onNext(.showConvertAlert(message:"Some message"))
                     var convertConfirmTriggered = false
+                    subject.viewModel.fromCurrency.accept("100")
+                    subject.viewModel.toCurrency.accept("100")
                     subject.viewModel
                         .convertConfirmed
                         .subscribe(onNext: {_ in

@@ -17,10 +17,13 @@ class ConvertorViewModelSpec: QuickSpec {
         describe("ConvertorViewModel Test") {
             var subject: ConvertorViewModel!
             var mockCurrencyService: MockCurrencyService!
+            var mockTransactionDb: MockTransactionDb!
             var disposeBag: DisposeBag!
             beforeEach {
                 mockCurrencyService = MockCurrencyService()
-                subject = ConvertorViewModel(currencyService: mockCurrencyService)
+                mockTransactionDb = MockTransactionDb()
+                subject = ConvertorViewModel(currencyService: mockCurrencyService,
+                                             transactionDB: mockTransactionDb)
                 disposeBag = DisposeBag()
             }
             context("When convert button is triggered") {
@@ -199,7 +202,7 @@ class ConvertorViewModelSpec: QuickSpec {
                         expect(subject.fromCurrency.value).to(equal("37.02"))
                     }
                 }
-                context("when to showTransactionClicked is triggered") {
+                context("when showTransactionClicked is triggered") {
                     it("should emit showTransactonView event") {
                         var isShowTransactionViewEvent = false
                         subject.events
@@ -211,6 +214,49 @@ class ConvertorViewModelSpec: QuickSpec {
                         subject.showTransactionButtonClicked.onNext(())
                         expect(isShowTransactionViewEvent).to(beTrue())
                     }
+                }
+                context("when convertConfirmed is triggered") {
+                    it("should save transaction object to realm event") {
+                        subject.skipCalculation.accept(true)
+                        subject.toCurrencyCode.accept("USD")
+                        subject.fromCurrencyCode.accept("SGD")
+                        subject.toCurrency.accept("800")
+                        subject.fromCurrency.accept("1000")
+                        subject.convertConfirmed.onNext(())
+                        guard let transactionObj = mockTransactionDb.saveTransactionCalledWithObject as? TransactionObject else {
+                            fail("Save called with wrong object")
+                            return
+                        }
+                        expect(transactionObj.id).to(equal(101))
+                        expect(transactionObj.transactionId).to(equal("CVRT101"))
+                        expect(transactionObj.transactionDate.toString()).to(equal(Date().toString()))
+                        expect(transactionObj.toCurrencyCode).to(equal("USD"))
+                        expect(transactionObj.fromCurrencyCode).to(equal("SGD"))
+                        expect(transactionObj.toCurrency).to(equal(800))
+                        expect(transactionObj.fromCurrency).to(equal(1000))
+                        expect(transactionObj.exchangeRate).to(equal(0.80))
+                        
+                    }
+                }
+                it("should save transaction object2 to realm event") {
+                    subject.skipCalculation.accept(true)
+                    subject.toCurrencyCode.accept("INR")
+                    subject.fromCurrencyCode.accept("SGD")
+                    subject.toCurrency.accept("50000")
+                    subject.fromCurrency.accept("1000")
+                    subject.convertConfirmed.onNext(())
+                    guard let transactionObj = mockTransactionDb.saveTransactionCalledWithObject as? TransactionObject else {
+                        fail("Save called with wrong object")
+                        return
+                    }
+                    expect(transactionObj.id).to(equal(101))
+                    expect(transactionObj.transactionId).to(equal("CVRT101"))
+                    expect(transactionObj.transactionDate.toString()).to(equal(Date().toString()))
+                    expect(transactionObj.toCurrencyCode).to(equal("INR"))
+                    expect(transactionObj.fromCurrencyCode).to(equal("SGD"))
+                    expect(transactionObj.toCurrency).to(equal(50000))
+                    expect(transactionObj.fromCurrency).to(equal(1000))
+                    expect(transactionObj.exchangeRate).to(equal(50.00))
                 }
             }
         }
