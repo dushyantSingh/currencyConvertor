@@ -26,6 +26,7 @@ class ConvertorViewController: UIViewController, ViewControllerProtocol {
     var toPickerView = UIPickerView()
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         setupUI()
         setupEvent()
         setupShowTransactionButton()
