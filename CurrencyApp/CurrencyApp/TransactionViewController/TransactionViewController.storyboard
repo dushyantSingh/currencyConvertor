@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,13 +15,34 @@
                     <view key="view" contentMode="scaleToFill" id="Tac-gb-BGb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Pf8-no-H8i">
+                                <rect key="frame" x="0.0" y="68" width="414" height="770"/>
+                                <color key="backgroundColor" name="BackgroundColor"/>
+                                <color key="separatorColor" name="BackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" name="BackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Pf8-no-H8i" firstAttribute="leading" secondItem="4NC-IP-awn" secondAttribute="leading" id="NAw-FA-ckY"/>
+                            <constraint firstItem="Pf8-no-H8i" firstAttribute="top" secondItem="4NC-IP-awn" secondAttribute="top" constant="24" id="aU0-xH-smW"/>
+                            <constraint firstItem="4NC-IP-awn" firstAttribute="trailing" secondItem="Pf8-no-H8i" secondAttribute="trailing" id="bzu-Yw-2WA"/>
+                            <constraint firstItem="4NC-IP-awn" firstAttribute="bottom" secondItem="Pf8-no-H8i" secondAttribute="bottom" constant="24" id="yF2-fz-ye2"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="4NC-IP-awn"/>
                     </view>
+                    <connections>
+                        <outlet property="transactionTableView" destination="Pf8-no-H8i" id="s5X-JM-nIk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kb2-kh-ChU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="181" y="115"/>
         </scene>
     </scenes>
+    <resources>
+        <namedColor name="BackgroundColor">
+            <color red="0.43500000238418579" green="1" blue="0.91399997472763062" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>
