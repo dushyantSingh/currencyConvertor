@@ -22,6 +22,7 @@ class ConvertorViewController: UIViewController, ViewControllerProtocol {
     @IBOutlet weak var toCurrencyCodeTextField: UITextField!
     @IBOutlet weak var toCurrencyView: UIView!
     @IBOutlet weak var fromCurrencyView: UIView!
+    @IBOutlet weak var walletBalanceLabel: UILabel!
     
     private let disposeBag = DisposeBag()
     var fromPickerView = UIPickerView()
@@ -31,6 +32,7 @@ class ConvertorViewController: UIViewController, ViewControllerProtocol {
         super.viewDidLoad()
         setupUI()
         setupEvent()
+        setupWallet()
         setupShowTransactionButton()
         setupCurrencyTextField()
         setupCurrencyCodeTextFields()
@@ -56,6 +58,12 @@ extension ConvertorViewController {
             .when(.recognized)
             .subscribe(onNext: {[weak self] _ in
                 self?.view.endEditing(true) })
+            .disposed(by: disposeBag)
+    }
+    
+    private func setupWallet() {
+        viewModel.walletBalance
+            .bind(to: self.walletBalanceLabel.rx.text)
             .disposed(by: disposeBag)
     }
     

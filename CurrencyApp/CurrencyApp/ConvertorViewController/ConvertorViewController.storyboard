@@ -100,20 +100,51 @@
                                     <constraint firstAttribute="height" constant="60" id="uFK-Mk-e86"/>
                                 </constraints>
                             </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xkS-8X-qKt">
+                                <rect key="frame" x="74" y="220" width="266" height="27"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dollarsign.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Hoy-Ua-FFf">
+                                        <rect key="frame" x="8" y="0.5" width="27" height="26"/>
+                                        <color key="tintColor" name="FontColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="27" id="DPa-LF-Cxe"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="My6-d7-f13">
+                                        <rect key="frame" x="43" y="2" width="47.5" height="23"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" name="FontColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" name="BackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="My6-d7-f13" firstAttribute="top" secondItem="xkS-8X-qKt" secondAttribute="top" constant="2" id="89E-Re-H6j"/>
+                                    <constraint firstAttribute="bottom" secondItem="Hoy-Ua-FFf" secondAttribute="bottom" id="BEk-ye-lWv"/>
+                                    <constraint firstAttribute="bottom" secondItem="My6-d7-f13" secondAttribute="bottom" constant="2" id="LUX-fw-NCG"/>
+                                    <constraint firstItem="Hoy-Ua-FFf" firstAttribute="top" secondItem="xkS-8X-qKt" secondAttribute="top" id="TQI-tc-iJB"/>
+                                    <constraint firstItem="Hoy-Ua-FFf" firstAttribute="leading" secondItem="xkS-8X-qKt" secondAttribute="leading" constant="8" id="c2g-0f-b91"/>
+                                    <constraint firstItem="My6-d7-f13" firstAttribute="leading" secondItem="Hoy-Ua-FFf" secondAttribute="trailing" constant="8" id="v5R-dn-qrB"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" name="BackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="xkS-8X-qKt" firstAttribute="leading" secondItem="jPr-ZL-tm6" secondAttribute="leading" constant="74" id="05M-r1-BHX"/>
                             <constraint firstItem="N0A-od-zuR" firstAttribute="centerX" secondItem="tDY-PI-ZcZ" secondAttribute="centerX" id="0U9-pK-qMN"/>
+                            <constraint firstItem="N0A-od-zuR" firstAttribute="top" secondItem="xkS-8X-qKt" secondAttribute="bottom" constant="1" id="9b0-aS-Egl"/>
                             <constraint firstItem="jPr-ZL-tm6" firstAttribute="trailing" secondItem="2eW-an-Bpa" secondAttribute="trailing" constant="32" id="Bcr-Sm-UoW"/>
                             <constraint firstItem="s3P-CU-269" firstAttribute="top" secondItem="N0A-od-zuR" secondAttribute="bottom" constant="30" id="L3R-uh-HqE"/>
                             <constraint firstItem="s3P-CU-269" firstAttribute="leading" secondItem="jPr-ZL-tm6" secondAttribute="leading" constant="74" id="PeH-nc-mlX"/>
                             <constraint firstItem="cCc-KO-wDt" firstAttribute="top" secondItem="jPr-ZL-tm6" secondAttribute="top" constant="34" id="Rsd-MV-qb9"/>
                             <constraint firstItem="jPr-ZL-tm6" firstAttribute="trailing" secondItem="cCc-KO-wDt" secondAttribute="trailing" constant="74" id="SOM-CV-r72"/>
                             <constraint firstItem="cCc-KO-wDt" firstAttribute="leading" secondItem="jPr-ZL-tm6" secondAttribute="leading" constant="74" id="STV-RV-Ruq"/>
+                            <constraint firstItem="jPr-ZL-tm6" firstAttribute="trailing" secondItem="xkS-8X-qKt" secondAttribute="trailing" constant="74" id="VMF-c4-i4F"/>
                             <constraint firstItem="jPr-ZL-tm6" firstAttribute="trailing" secondItem="s3P-CU-269" secondAttribute="trailing" constant="74" id="a3h-eo-GVA"/>
                             <constraint firstItem="N0A-od-zuR" firstAttribute="top" secondItem="cCc-KO-wDt" secondAttribute="bottom" constant="30" id="eVg-Xa-SLo"/>
                             <constraint firstItem="2eW-an-Bpa" firstAttribute="leading" secondItem="jPr-ZL-tm6" secondAttribute="leading" constant="32" id="gzi-Z6-aJg"/>
                             <constraint firstItem="jPr-ZL-tm6" firstAttribute="bottom" secondItem="2eW-an-Bpa" secondAttribute="bottom" constant="24" id="uxN-Id-GVZ"/>
+                            <constraint firstItem="xkS-8X-qKt" firstAttribute="top" secondItem="cCc-KO-wDt" secondAttribute="bottom" constant="2" id="xrA-t9-tNC"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jPr-ZL-tm6"/>
                     </view>
@@ -125,6 +156,7 @@
                         <outlet property="toCurrencyCodeTextField" destination="2fR-RX-Fsa" id="ksH-g7-5ka"/>
                         <outlet property="toCurrencyTextField" destination="RKP-yN-y38" id="mCu-Xd-fIJ"/>
                         <outlet property="toCurrencyView" destination="s3P-CU-269" id="tZg-nh-CGt"/>
+                        <outlet property="walletBalanceLabel" destination="My6-d7-f13" id="nT5-Ac-uJd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kBM-iC-UU9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -134,6 +166,7 @@
     </scenes>
     <resources>
         <image name="arrow.up.arrow.down" catalog="system" width="64" height="48"/>
+        <image name="dollarsign.circle" catalog="system" width="64" height="60"/>
         <namedColor name="BackgroundColor">
             <color red="0.43500000238418579" green="1" blue="0.91399997472763062" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

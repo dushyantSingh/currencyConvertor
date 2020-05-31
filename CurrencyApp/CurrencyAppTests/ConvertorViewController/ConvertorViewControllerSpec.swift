@@ -17,16 +17,19 @@ class ConvertorViewControllerSpec: QuickSpec {
             var subject: ConvertorViewController!
             var mockCurrencyService: MockCurrencyService!
             var mockDb: MockTransactionDb!
+            var mockWallet: MockWallet!
             var disposeBag: DisposeBag!
             
             beforeEach {
                 subject = UIViewController.make(viewController: ConvertorViewController.self)
                 mockCurrencyService = MockCurrencyService()
                 mockDb = MockTransactionDb()
+                mockWallet = MockWallet()
                 disposeBag = DisposeBag()
                 
                 subject.viewModel = ConvertorViewModel(currencyService: mockCurrencyService,
-                                                       transactionDB: mockDb)
+                                                       transactionDB: mockDb,
+                                                       wallet: mockWallet)
                 _ = subject.view
             }
             
@@ -40,7 +43,7 @@ class ConvertorViewControllerSpec: QuickSpec {
                 it("should have title") {
                     expect(subject.title).to(equal("Convert"))
                 }
-                xit("should latestRateRequest called") {
+                it("should latestRateRequest called") {
                     var isLatestRateRequestCalled = false
                     subject.viewModel
                         .latestRateRequest
@@ -55,6 +58,10 @@ class ConvertorViewControllerSpec: QuickSpec {
                     mockCurrencyService.isRetrieveCalled = false
                     subject.fetchExchangeRates()
                     expect(mockCurrencyService.isRetrieveCalled).to(beTrue())
+                }
+                it("should display wallet balance") {
+                    mockWallet.mockBalance.accept(100.20)
+                    expect(subject.walletBalanceLabel.text).to(equal("SGD 100.20"))
                 }
             }
             context("when convert button is clicked") {

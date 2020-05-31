@@ -15,7 +15,7 @@ class TransactionDb: RealmDbType {
     var objectTypes: [Object.Type] {[TransactionObject.self]}
     var realm: Realm?
      
-    static var shared: TransactionDb = TransactionDb()
+    static let shared: TransactionDb = TransactionDb()
     private init() {
         self.initializeDB { success, _ in
             if !success {
