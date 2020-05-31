@@ -53,6 +53,7 @@
 		44D501DE2483F638008DEC05 /* TransactionDb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D501DD2483F637008DEC05 /* TransactionDb.swift */; };
 		44D501E02483F736008DEC05 /* TransactionObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D501DF2483F736008DEC05 /* TransactionObject.swift */; };
 		44D501E224840D43008DEC05 /* MockTransactionDb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D501E124840D43008DEC05 /* MockTransactionDb.swift */; };
+		44D501E52484186F008DEC05 /* Wallet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D501E42484186F008DEC05 /* Wallet.swift */; };
 		55CCC47EDBF52346AD2551CD /* Pods_CurrencyAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 358BB5A1F19004F6C768AEAB /* Pods_CurrencyAppTests.framework */; };
 		DC2A231C2F1F17DA4B3BB7EB /* Pods_CurrencyApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEBA12C20A059CA200627042 /* Pods_CurrencyApp.framework */; };
 /* End PBXBuildFile section */
@@ -119,6 +120,7 @@
 		44D501DD2483F637008DEC05 /* TransactionDb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDb.swift; sourceTree = "<group>"; };
 		44D501DF2483F736008DEC05 /* TransactionObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionObject.swift; sourceTree = "<group>"; };
 		44D501E124840D43008DEC05 /* MockTransactionDb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTransactionDb.swift; sourceTree = "<group>"; };
+		44D501E42484186F008DEC05 /* Wallet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallet.swift; sourceTree = "<group>"; };
 		4A43AB9A6EAB247AC9BCDD88 /* Pods-CurrencyApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyApp.debug.xcconfig"; path = "Target Support Files/Pods-CurrencyApp/Pods-CurrencyApp.debug.xcconfig"; sourceTree = "<group>"; };
 		96B266A094FE9521E9AA2D41 /* Pods-CurrencyApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyApp.release.xcconfig"; path = "Target Support Files/Pods-CurrencyApp/Pods-CurrencyApp.release.xcconfig"; sourceTree = "<group>"; };
 		BEBA12C20A059CA200627042 /* Pods_CurrencyApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CurrencyApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,6 +175,7 @@
 				44D5015D248109D8008DEC05 /* SceneDelegate.swift */,
 				44D501842481205E008DEC05 /* MainViewCoordinator.swift */,
 				44D50186248120DA008DEC05 /* MainViewModelCoordinator.swift */,
+				44D501E324841856008DEC05 /* Wallet */,
 				44D501DA2483F56C008DEC05 /* Database */,
 				44D5017D24810AE8008DEC05 /* ConvertorViewController */,
 				44D501AC2483B1DD008DEC05 /* TransactionViewController */,
@@ -314,6 +317,14 @@
 				44D501DF2483F736008DEC05 /* TransactionObject.swift */,
 			);
 			path = Database;
+			sourceTree = "<group>";
+		};
+		44D501E324841856008DEC05 /* Wallet */ = {
+			isa = PBXGroup;
+			children = (
+				44D501E42484186F008DEC05 /* Wallet.swift */,
+			);
+			path = Wallet;
 			sourceTree = "<group>";
 		};
 		ADCA166A3580E3863F6C1ECB /* Frameworks */ = {
@@ -525,6 +536,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44D501E52484186F008DEC05 /* Wallet.swift in Sources */,
 				44D5018124811E5F008DEC05 /* ConvertorViewModel.swift in Sources */,
 				44D5018D24817AEC008DEC05 /* ExchangeModel.swift in Sources */,
 				44D501DE2483F638008DEC05 /* TransactionDb.swift in Sources */,
