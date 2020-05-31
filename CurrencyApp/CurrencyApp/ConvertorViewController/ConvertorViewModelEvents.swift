@@ -9,6 +9,7 @@
 enum ConvertViewModelEvents {
     case showConvertAlert(message: String)
     case showErrorAlert(message: String)
+    case showTransactionView
 }
 
 extension ConvertViewModelEvents {

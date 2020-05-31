@@ -17,6 +17,7 @@ class ConvertorViewModel {
     let convertButtonClicked = PublishSubject<Void>()
     let convertConfirmed = PublishSubject<Void>()
     let latestRateRequest = PublishSubject<Void>()
+    let showTransactionButtonClicked = PublishSubject<Void>()
     let events = PublishSubject<ConvertViewModelEvents>()
     
     let exchangeRates: BehaviorRelay<[String: Double]> = BehaviorRelay(value: [:])
@@ -62,6 +63,11 @@ extension ConvertorViewModel {
                     .showConvertAlert(message: message) :
                     .showErrorAlert(message: message)}
             .bind(to: events)
+            .disposed(by: disposeBag)
+        
+        showTransactionButtonClicked.asObservable()
+            .map { .showTransactionView }
+            .bind(to: self.events)
             .disposed(by: disposeBag)
         
         convertConfirmed.asObservable()

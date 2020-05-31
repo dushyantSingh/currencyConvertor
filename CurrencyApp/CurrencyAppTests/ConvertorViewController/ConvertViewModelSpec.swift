@@ -41,6 +41,7 @@ class ConvertorViewModelSpec: QuickSpec {
                             case .showConvertAlert(let message):
                                 showConvertAlertEvent = true
                                 actualMessage = message
+                            default : break
                             }})
                         .disposed(by: disposeBag)
                 }
@@ -196,6 +197,19 @@ class ConvertorViewModelSpec: QuickSpec {
                     it("should convert 250 SEK to SGD") {
                         subject.toCurrency.accept("250")
                         expect(subject.fromCurrency.value).to(equal("37.02"))
+                    }
+                }
+                context("when to showTransactionClicked is triggered") {
+                    it("should emit showTransactonView event") {
+                        var isShowTransactionViewEvent = false
+                        subject.events
+                            .subscribe(onNext: { event in
+                                if case .showTransactionView = event {
+                                    isShowTransactionViewEvent = true
+                                }})
+                            .disposed(by: disposeBag)
+                        subject.showTransactionButtonClicked.onNext(())
+                        expect(isShowTransactionViewEvent).to(beTrue())
                     }
                 }
             }
