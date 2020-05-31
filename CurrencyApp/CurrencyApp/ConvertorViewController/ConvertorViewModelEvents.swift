@@ -6,15 +6,15 @@
 //  Copyright © 2020 Dushyant Singh. All rights reserved.
 //
 
-enum ConvertViewModelEvents {
+enum ConvertorViewModelEvents {
     case showConvertAlert(message: String)
     case showErrorAlert(message: String)
     case showTransactionView
 }
 
-extension ConvertViewModelEvents {
-    static func == (lhs: ConvertViewModelEvents,
-                    rhs: ConvertViewModelEvents) -> Bool {
+extension ConvertorViewModelEvents {
+    static func == (lhs: ConvertorViewModelEvents,
+                    rhs: ConvertorViewModelEvents) -> Bool {
         switch (lhs, rhs) {
         case (.showConvertAlert(let A),
               .showConvertAlert(let B)):

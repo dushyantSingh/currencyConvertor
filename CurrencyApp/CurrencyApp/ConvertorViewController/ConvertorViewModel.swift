@@ -18,7 +18,7 @@ class ConvertorViewModel {
     let convertConfirmed = PublishSubject<Void>()
     let latestRateRequest = PublishSubject<Void>()
     let showTransactionButtonClicked = PublishSubject<Void>()
-    let events = PublishSubject<ConvertViewModelEvents>()
+    let events = PublishSubject<ConvertorViewModelEvents>()
     
     let exchangeRates: BehaviorRelay<[String: Double]> = BehaviorRelay(value: [:])
     let currencyCodes: BehaviorRelay<[String]> = BehaviorRelay(value: [])
