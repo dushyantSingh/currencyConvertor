@@ -30,6 +30,19 @@ class ConvertorViewModel {
     
     private let disposeBag = DisposeBag()
    
+    private  var areFieldsValid: Bool {
+        return  !(self.fromCurrencyCode.value.isEmpty ||
+            self.fromCurrency.value.isEmpty ||
+            self.toCurrencyCode.value.isEmpty ||
+            self.toCurrency.value.isEmpty)
+    }
+    private var convertAlertMessage: String {
+        if areFieldsValid {
+            return "Are you sure you want to convert \(self.fromCurrencyCode.value) \(self.fromCurrency.value) to \(self.toCurrencyCode.value) \(self.toCurrency.value)?"
+        }
+        return "Please fill all fields before conversion."
+    }
+    
     init(currencyService: CurrencyServiceType) {
         self.currencyService = currencyService
         setupCalculation()
@@ -41,14 +54,20 @@ class ConvertorViewModel {
 extension ConvertorViewModel {
     private func setupEvents() {
         convertButtonClicked.asObservable()
-            .map{.showConvertAlert}
+            .map{ [weak self ] _ in
+                self?.convertAlertMessage }
+            .filterNil()
+            .map{ [weak self ] message in
+                (self?.areFieldsValid ?? false) ?
+                    .showConvertAlert(message: message) :
+                    .showErrorAlert(message: message)}
             .bind(to: events)
             .disposed(by: disposeBag)
         
-        convertConfirmed.asObservable().subscribe(onNext: {_ in
-            print("Calculate conversion")
-        })
-        .disposed(by: disposeBag)
+        convertConfirmed.asObservable()
+            .subscribe(onNext: {_ in
+                print("Calculate conversion") })
+            .disposed(by: disposeBag)
     }
     
     private func setupFetch() {

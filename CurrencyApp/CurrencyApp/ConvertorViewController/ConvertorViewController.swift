@@ -112,12 +112,12 @@ extension ConvertorViewController {
             .flatMap { [weak self] event -> Observable<AlertModelEvent> in
                 guard let self = self else { return Observable.empty() }
                 switch event {
-                case .showConvertAlert:
+                case .showConvertAlert(let message):
                     let cancelButton = AlertModel(title: "Cancel", style: .cancel)
                     let convertButton = AlertModel(title: "Convert", style: .default)
                     
                     return self.alertPresenter.present(title: "Alert",
-                                                       message: "Are you sure you want to convert?",
+                                                       message: message,
                                                        actions: [cancelButton,
                                                                  convertButton],
                                                        viewController: self)

@@ -73,26 +73,32 @@ class ConvertorViewControllerSpec: QuickSpec {
                     subject.alertPresenter = mockAlertView
                 }
                 it("should show alert view") {
-                    subject.viewModel.events.onNext(.showConvertAlert)
+                    subject.viewModel
+                        .events
+                        .onNext(.showConvertAlert(message:"Some message"))
                     expect(mockAlertView.isAlertViewPresented).to(beTrue())
                 }
                 it("should show alert view title") {
-                    subject.viewModel.events.onNext(.showConvertAlert)
+                    subject.viewModel
+                        .events
+                        .onNext(.showConvertAlert(message:"Some message"))
                     expect(mockAlertView.title).to(equal("Alert"))
                 }
                 it("should show alert view message") {
-                    subject.viewModel.events.onNext(.showConvertAlert)
+                    subject.viewModel
+                        .events
+                        .onNext(.showConvertAlert(message:"Some message"))
                     expect(mockAlertView.message)
-                        .to(equal("Are you sure you want to convert?"))
+                        .to(equal("Some message"))
                 }
                 it("should show have actions") {
-                    subject.viewModel.events.onNext(.showConvertAlert)
+                    subject.viewModel.events.onNext(.showConvertAlert(message:"Some message"))
                     expect(mockAlertView.actions.count).to(equal(2))
                 }
                 it("should show trigger confirm conversion") {
                     subject.viewModel
                         .events
-                        .onNext(.showConvertAlert)
+                        .onNext(.showConvertAlert(message:"Some message"))
                     var convertConfirmTriggered = false
                     subject.viewModel
                         .convertConfirmed

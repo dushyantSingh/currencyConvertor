@@ -24,16 +24,77 @@ class ConvertorViewModelSpec: QuickSpec {
                 disposeBag = DisposeBag()
             }
             context("When convert button is triggered") {
-                it("should emit event showConvertAlert") {
-                    var showConvertAlertEvent = false
-                    subject.events.subscribe(onNext: { event in
-                        if case .showConvertAlert = event {
-                            showConvertAlertEvent = true
-                        }
-                    })
-                    .disposed(by: disposeBag)
+                var showErrorAlertEvent: Bool!
+                var showConvertAlertEvent: Bool!
+                var actualMessage: String!
+                
+                beforeEach {
+                    showConvertAlertEvent = false
+                    showErrorAlertEvent = false
+                    actualMessage = ""
+                    subject.events
+                        .subscribe(onNext: { event in
+                            switch event {
+                            case .showErrorAlert(let message):
+                                showErrorAlertEvent = true
+                                actualMessage = message
+                            case .showConvertAlert(let message):
+                                showConvertAlertEvent = true
+                                actualMessage = message
+                            }})
+                        .disposed(by: disposeBag)
+                }
+                
+                it("should emit showErrorAlert event when no fields are filled") {
+                    let expectedMessage = "Please fill all fields before conversion."
                     subject.convertButtonClicked.onNext(())
+                    expect(showErrorAlertEvent).to(beTrue())
+
+                    expect(showConvertAlertEvent).to(beFalse())
+                    expect(actualMessage).to(equal(expectedMessage))
+                }
+                it("should emit showErrorAlert event when only from currency code is filled") {
+                    let expectedMessage = "Please fill all fields before conversion."
+                    subject.fromCurrencyCode.accept("SGD")
+                    subject.convertButtonClicked.onNext(())
+
+                    expect(showErrorAlertEvent).to(beTrue())
+                    expect(showConvertAlertEvent).to(beFalse())
+                    expect(actualMessage).to(equal(expectedMessage))
+                }
+                it("should emit showErrorAlert event when from currency code and from currency is filled") {
+                    let expectedMessage = "Please fill all fields before conversion."
+                    subject.fromCurrencyCode.accept("SGD")
+                    subject.fromCurrency.accept("100")
+                    subject.convertButtonClicked.onNext(())
+
+                    expect(showErrorAlertEvent).to(beTrue())
+                    expect(showConvertAlertEvent).to(beFalse())
+                    expect(actualMessage).to(equal(expectedMessage))
+                }
+                it("should emit showErrorAlert event when from currency code, from currency and to currency code is filled") {
+                    let expectedMessage = "Please fill all fields before conversion."
+                    subject.fromCurrencyCode.accept("SGD")
+                    subject.toCurrencyCode.accept("EUR")
+                    subject.fromCurrency.accept("100")
+                    subject.convertButtonClicked.onNext(())
+                    
+                    expect(showErrorAlertEvent).to(beTrue())
+                    expect(showConvertAlertEvent).to(beFalse())
+                    expect(actualMessage).to(equal(expectedMessage))
+                }
+                it("should emit showConvertAlert event when all fields are filled") {
+                    let expectedMessage = "Are you sure you want to convert SGD 100 to EUR 1000?"
+
+                    subject.fromCurrencyCode.accept("SGD")
+                    subject.toCurrencyCode.accept("EUR")
+                    subject.fromCurrency.accept("100")
+                    subject.toCurrency.accept("1000")
+
+                    subject.convertButtonClicked.onNext(())
+
                     expect(showConvertAlertEvent).to(beTrue())
+                    expect(actualMessage).to(equal(expectedMessage))
                 }
             }
             context("When latest exchange rate is triggered") {

@@ -7,7 +7,7 @@
 //
 
 enum ConvertViewModelEvents {
-    case showConvertAlert
+    case showConvertAlert(message: String)
     case showErrorAlert(message: String)
 }
 
@@ -15,9 +15,9 @@ extension ConvertViewModelEvents {
     static func == (lhs: ConvertViewModelEvents,
                     rhs: ConvertViewModelEvents) -> Bool {
         switch (lhs, rhs) {
-        case (.showConvertAlert,
-              .showConvertAlert):
-            return true
+        case (.showConvertAlert(let A),
+              .showConvertAlert(let B)):
+            return A == B
         case (.showErrorAlert(let A),
               .showErrorAlert(let B)):
             return A == B
