@@ -10,9 +10,10 @@ import Foundation
 import RealmSwift
 
 class TransactionDb: RealmDbType {
-    var dbName: String {"TransactionDB" }
+    var dbName: String { "TransactionDB" }
     var schemaVersion: UInt64 { 1 }
-    var objectTypes: [Object.Type] {[TransactionObject.self]}
+    var objectTypes: [Object.Type] {[TransactionObject.self,
+                                     ExchangeObject.self]}
     var realm: Realm?
      
     static let shared: TransactionDb = TransactionDb()
