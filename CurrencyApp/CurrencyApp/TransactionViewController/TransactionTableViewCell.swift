@@ -19,4 +19,11 @@ class TransactionTableViewCell: UITableViewCell {
         super.awakeFromNib()
         self.contentBackgroundView.setCornerRadius(.large)
     }
+    
+    func configure(with cellModel: TransactionCellModel) {
+        transactionNumberLabel.text = cellModel.idString
+        dateLabel.text = cellModel.dateString
+        conversionRateLabel.text = cellModel.exchangeRateString
+        convertedCurrencyLabel.text = cellModel.exchangeString
+    }
 }
