@@ -29,6 +29,7 @@
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="SGD" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hLo-Gi-tpC">
                                         <rect key="frame" x="12" y="12" width="120" height="42"/>
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="120" id="9Ei-0B-CKJ"/>
                                             <constraint firstAttribute="height" constant="42" id="w7X-bB-0v0"/>
@@ -61,6 +62,7 @@
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="SGD" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2fR-RX-Fsa">
                                         <rect key="frame" x="12" y="12" width="120" height="42"/>
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="120" id="48w-Zq-FXX"/>
                                             <constraint firstAttribute="height" constant="42" id="vgv-W4-A1U"/>
