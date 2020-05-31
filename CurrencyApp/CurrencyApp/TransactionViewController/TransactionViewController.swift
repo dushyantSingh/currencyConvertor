@@ -12,5 +12,8 @@ class TransactionViewController: UIViewController, ViewControllerProtocol {
     typealias ViewModelType = TransactionViewModel
     var viewModel: TransactionViewModel!
     
-    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.title = viewModel.title
+    }
 }

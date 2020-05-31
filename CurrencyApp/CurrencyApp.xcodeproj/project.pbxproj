@@ -37,6 +37,7 @@
 		44D501B62483B878008DEC05 /* MainViewCoordinatorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D501B52483B878008DEC05 /* MainViewCoordinatorSpec.swift */; };
 		44D501BA2483B91B008DEC05 /* MockNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D501B92483B91B008DEC05 /* MockNavigationController.swift */; };
 		44D501BB2483BB1C008DEC05 /* MainViewModelCoordinatorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D501B72483B884008DEC05 /* MainViewModelCoordinatorSpec.swift */; };
+		44D501BE2483BD45008DEC05 /* TransactionViewControllerSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D501BD2483BD45008DEC05 /* TransactionViewControllerSpec.swift */; };
 		55CCC47EDBF52346AD2551CD /* Pods_CurrencyAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 358BB5A1F19004F6C768AEAB /* Pods_CurrencyAppTests.framework */; };
 		DC2A231C2F1F17DA4B3BB7EB /* Pods_CurrencyApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEBA12C20A059CA200627042 /* Pods_CurrencyApp.framework */; };
 /* End PBXBuildFile section */
@@ -87,6 +88,7 @@
 		44D501B52483B878008DEC05 /* MainViewCoordinatorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewCoordinatorSpec.swift; sourceTree = "<group>"; };
 		44D501B72483B884008DEC05 /* MainViewModelCoordinatorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModelCoordinatorSpec.swift; sourceTree = "<group>"; };
 		44D501B92483B91B008DEC05 /* MockNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockNavigationController.swift; sourceTree = "<group>"; };
+		44D501BD2483BD45008DEC05 /* TransactionViewControllerSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewControllerSpec.swift; sourceTree = "<group>"; };
 		4A43AB9A6EAB247AC9BCDD88 /* Pods-CurrencyApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyApp.debug.xcconfig"; path = "Target Support Files/Pods-CurrencyApp/Pods-CurrencyApp.debug.xcconfig"; sourceTree = "<group>"; };
 		96B266A094FE9521E9AA2D41 /* Pods-CurrencyApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyApp.release.xcconfig"; path = "Target Support Files/Pods-CurrencyApp/Pods-CurrencyApp.release.xcconfig"; sourceTree = "<group>"; };
 		BEBA12C20A059CA200627042 /* Pods_CurrencyApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CurrencyApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -141,9 +143,9 @@
 				44D5015D248109D8008DEC05 /* SceneDelegate.swift */,
 				44D501842481205E008DEC05 /* MainViewCoordinator.swift */,
 				44D50186248120DA008DEC05 /* MainViewModelCoordinator.swift */,
-				44D501AC2483B1DD008DEC05 /* TransactionViewController */,
 				44D5018824812388008DEC05 /* Helpers */,
 				44D5017D24810AE8008DEC05 /* ConvertorViewController */,
+				44D501AC2483B1DD008DEC05 /* TransactionViewController */,
 				44D5018B24817AC8008DEC05 /* CurrencyService */,
 				44D50164248109DB008DEC05 /* Assets.xcassets */,
 				44D50166248109DB008DEC05 /* LaunchScreen.storyboard */,
@@ -155,6 +157,7 @@
 		44D50171248109DB008DEC05 /* CurrencyAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				44D501BC2483BD30008DEC05 /* TransactionViewController */,
 				44D501A0248290D3008DEC05 /* Mocks */,
 				44D50197248250C1008DEC05 /* ConvertorViewController */,
 				44D50174248109DB008DEC05 /* Info.plist */,
@@ -224,6 +227,14 @@
 				44D501AD2483B200008DEC05 /* TransactionViewController.swift */,
 				44D501AF2483B214008DEC05 /* TransactionViewModel.swift */,
 				44D501B12483B228008DEC05 /* TransactionViewController.storyboard */,
+			);
+			path = TransactionViewController;
+			sourceTree = "<group>";
+		};
+		44D501BC2483BD30008DEC05 /* TransactionViewController */ = {
+			isa = PBXGroup;
+			children = (
+				44D501BD2483BD45008DEC05 /* TransactionViewControllerSpec.swift */,
 			);
 			path = TransactionViewController;
 			sourceTree = "<group>";
@@ -465,6 +476,7 @@
 				44D501BB2483BB1C008DEC05 /* MainViewModelCoordinatorSpec.swift in Sources */,
 				44D50199248250FF008DEC05 /* ConvertorViewControllerSpec.swift in Sources */,
 				44D5019B24825E2E008DEC05 /* ConvertViewModelSpec.swift in Sources */,
+				44D501BE2483BD45008DEC05 /* TransactionViewControllerSpec.swift in Sources */,
 				44D501A2248290E6008DEC05 /* MockService.swift in Sources */,
 				44D501B62483B878008DEC05 /* MainViewCoordinatorSpec.swift in Sources */,
 				44D501A924830C2B008DEC05 /* MockExchangeRate.swift in Sources */,

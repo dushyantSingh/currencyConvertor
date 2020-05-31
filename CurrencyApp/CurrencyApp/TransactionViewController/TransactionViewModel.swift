@@ -9,5 +9,5 @@
 import Foundation
 
 class TransactionViewModel {
-    
+    let title: String = "Transactions"
 }
