@@ -140,16 +140,20 @@ extension ConvertorViewModel {
                 return self.currencyService.retrieve(request: request)}
             .observeOn(MainScheduler.instance)
             .subscribe(
-                onNext: { rates in
+                onNext: {[weak self] rates in
                     var exchangeRates = rates.rates
                     exchangeRates[rates.base] = 1.0
-                    self.exchangeRates.accept(exchangeRates)
-                    self.currencyCodes.accept(exchangeRates.keys.sorted())
-                    self.fromCurrencyCode.accept(rates.base)
-                    self.toCurrencyCode.accept(rates.base) },
+                    self?.saveToDb(rates: rates)
+                    self?.populateUI(rates: exchangeRates)
+                    self?.setDefaultCurrencyCode(code: rates.base) },
                 
-                onError: { error in
-                    self.events.onNext(.showErrorAlert(message: error.localizedDescription))})
+                onError: {[weak self] error in
+                    var message  = error.localizedDescription
+                    if let exchangeRate = self?.loadExchangeRatesFromDb() {
+                        message = "Unable to retrieve latest exchange rates. Currently using saved rates."
+                        self?.populateUI(rates: exchangeRate.rates)
+                        self?.setDefaultCurrencyCode(code: exchangeRate.base) }
+                    self?.events.onNext(.showErrorAlert(message: message))})
             .disposed(by: disposeBag)
     }
     private func setupCalculation() {
@@ -178,5 +182,32 @@ extension ConvertorViewModel {
         let exchangeRateForSGD: Double = self.exchangeRates.value["SGD"]!
         let exchangeRateForGivenCurrecy: Double = self.exchangeRates.value[currencyCode]!
         return money * (exchangeRateForSGD/exchangeRateForGivenCurrecy)
+    }
+}
+
+extension ConvertorViewModel {
+    func saveToDb(rates: ExchangeModel) {
+        let exchangeObject = ExchangeObject(exchangeModel: rates)
+        self.transactionDB.saveWithoutUpdate(objects: [exchangeObject])
+    }
+    func loadExchangeRatesFromDb() -> ExchangeModel? {
+        let decoder = JSONDecoder()
+        guard let exchangeObject = self.transactionDB.realmObjects(type: ExchangeObject.self)?.first,
+            let rates = try? decoder.decode([String: Double].self,
+                                            from: exchangeObject.rates) else {
+                                                return nil
+        }
+        return ExchangeModel(rates: rates,
+                             base: exchangeObject.base,
+                             date: exchangeObject.date)
+    }
+    
+    func populateUI(rates: [String: Double]) {
+        self.exchangeRates.accept(rates)
+        self.currencyCodes.accept(rates.keys.sorted())
+    }
+    func setDefaultCurrencyCode(code: String) {
+        self.fromCurrencyCode.accept(code)
+        self.toCurrencyCode.accept(code)
     }
 }

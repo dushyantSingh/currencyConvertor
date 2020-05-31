@@ -133,6 +133,16 @@ class ConvertorViewModelSpec: QuickSpec {
                     expect(subject.exchangeRates.value["SGD"])
                         .toEventually(equal(1.5))
                 }
+                it("should save exchange rates on retrieve latest") {
+                    let mockData = ExchangeModel(rates: ["SGD" : 1.5], base: "EUR", date: "Today")
+                    subject.latestRateRequest.onNext(())
+                    mockCurrencyService.onRetrieve.onNext(mockData)
+                    let expectecObj = ExchangeObject(exchangeModel: mockData)
+                   let actualObj = mockTransactionDb.saveWithoutUpdateCalledWithObject as! ExchangeObject
+                    expect(actualObj.rates).to(equal(expectecObj.rates))
+                    expect(actualObj.base).to(equal(expectecObj.base))
+                    expect(actualObj.date).to(equal(expectecObj.date))
+                }
                 it("should emit show error alert event when retrieve fails") {
                     let error = MockError()
                     subject.latestRateRequest.onNext(())
@@ -145,6 +155,12 @@ class ConvertorViewModelSpec: QuickSpec {
                         .disposed(by: disposeBag)
                     mockCurrencyService.onRetrieve.onError(error)
                     expect(isShowErrorAlertEvent).toEventually(beTrue())
+                }
+                it("should use saved exchange rates when retrieve fails") {
+                    let error = MockError()
+                    subject.latestRateRequest.onNext(())
+                    mockCurrencyService.onRetrieve.onError(error)
+                    expect(mockTransactionDb.fetchTransactionsCalled).toEventually(beTrue())
                 }
             }
             context("When calculation is triggered") {
