@@ -44,7 +44,8 @@ class MainViewCoordinatorSpec: QuickSpec {
                 }
                 context("when view model is TransactionViewModel") {
                     beforeEach {
-                        let viewModel = TransactionViewModel()
+                        let stub = TransactionStub.transactions
+                        let viewModel = TransactionViewModel(transactions: stub)
                         subject.viewModelCoordinator
                             .navigationAction.onNext(.push(viewModel: viewModel,
                                                            animated: true))

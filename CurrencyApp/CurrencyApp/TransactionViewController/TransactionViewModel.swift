@@ -10,4 +10,9 @@ import Foundation
 
 class TransactionViewModel {
     let title: String = "Transactions"
+    
+    let transactions: [TransactionModel]
+    init(transactions: [TransactionModel]) {
+        self.transactions = transactions
+    }
 }

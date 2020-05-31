@@ -29,7 +29,8 @@ extension MainViewModelCoordinator {
             .flatMap { event -> Observable<NavigationAction> in
                 switch event {
                 case .showTransactionView:
-                    let viewModel = TransactionViewModel()
+                    let stub = TransactionStub.transactions
+                    let viewModel = TransactionViewModel(transactions: stub)
                     return Observable.just(.push(viewModel: viewModel,
                                                     animated: true))
                 default: return Observable.empty()

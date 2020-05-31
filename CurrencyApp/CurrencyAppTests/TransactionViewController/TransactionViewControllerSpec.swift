@@ -18,7 +18,8 @@ class TransactionViewControllerSpec: QuickSpec {
             var subject: TransactionViewController!
             var viewModel: TransactionViewModel!
             beforeEach {
-                viewModel = TransactionViewModel()
+                let stub = TransactionStub.transactions
+                viewModel = TransactionViewModel(transactions: stub)
                 subject = UIViewController.make(viewController: TransactionViewController.self)
                 subject.viewModel = viewModel
                 _ = subject.view
@@ -26,6 +27,10 @@ class TransactionViewControllerSpec: QuickSpec {
             context("when view loads") {
                 it("should display title"){
                     expect(subject.title).to(equal("Transactions"))
+                }
+                it("should display 4 transactions"){
+                    expect(subject.transactionTableView.numberOfRows(inSection: 0))
+                        .to(equal(4))
                 }
             }
         }
