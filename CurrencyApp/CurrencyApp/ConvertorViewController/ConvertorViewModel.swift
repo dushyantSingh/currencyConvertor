@@ -110,6 +110,9 @@ extension ConvertorViewModel {
                 let transactionModel = self.currentTransactionModel
                 let transactionObject = TransactionObject(transactionModel: transactionModel)
                 self.transactionDB.save(object: transactionObject)
+                let moneySpentInSGD = self.convertToSGD(money: transactionModel.fromCurrency,
+                                                   currencyCode: transactionModel.fromCurrencyCode)
+                self.wallet.takeMoney(moneySpentInSGD)
             })
             .disposed(by: disposeBag)
     }
@@ -153,5 +156,13 @@ extension ConvertorViewModel {
             .calculateExchangeToCurrency()
             .bind(to: self.fromCurrency)
             .disposed(by: disposeBag)
+    }
+}
+extension ConvertorViewModel {
+    func convertToSGD(money: Double, currencyCode: String) -> Double {
+        let exchangeRateForSGD: Double = self.exchangeRates.value["SGD"]!
+        let exchangeRateForGivenCurrecy: Double = self.exchangeRates.value[currencyCode]!
+        
+        return money * (exchangeRateForSGD/exchangeRateForGivenCurrecy)
     }
 }

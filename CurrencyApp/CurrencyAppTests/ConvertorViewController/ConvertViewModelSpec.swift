@@ -261,6 +261,17 @@ class ConvertorViewModelSpec: QuickSpec {
                     expect(transactionObj.fromCurrency).to(equal(1000))
                     expect(transactionObj.exchangeRate).to(equal(50.00))
                 }
+                it("should call wallet take money") {
+                    subject.skipCalculation.accept(true)
+                    subject.toCurrencyCode.accept("INR")
+                    subject.fromCurrencyCode.accept("SGD")
+                    subject.toCurrency.accept("50000")
+                    subject.fromCurrency.accept("1000")
+                    mockWallet.takeMoneyCalled = false
+                    
+                    subject.convertConfirmed.onNext(())
+                    expect(mockWallet.takeMoneyCalled).to(beTrue())
+                }
                 context("when wallet balace is changed") {
                     it("should update wallet balance in view model") {
                         var actualBalance = ""
@@ -279,6 +290,20 @@ class ConvertorViewModelSpec: QuickSpec {
                             .disposed(by: disposeBag)
                         mockWallet.mockBalance.accept(100.20)
                         expect(actualBalance).to(equal(("SGD 100.20")))
+                    }
+                }
+                context("when convert to sgd is called") {
+                    it("should return value in sgd") {
+                        subject.latestRateRequest.onNext(())
+                        let actualBalance = subject.convertToSGD(money: 1000, currencyCode: "INR")
+                        let actualBalanceString = String(format: "%.2f", actualBalance)
+                        expect(actualBalanceString).to(equal("18.72"))
+                    }
+                    it("should return value in sgd for USD") {
+                        subject.latestRateRequest.onNext(())
+                        let actualBalance = subject.convertToSGD(money: 1000, currencyCode: "USD")
+                        let actualBalanceString = String(format: "%.2f", actualBalance)
+                        expect(actualBalanceString).to(equal("1418.03"))
                     }
                 }
             }

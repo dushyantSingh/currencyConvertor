@@ -110,6 +110,8 @@ class ConvertorViewControllerSpec: QuickSpec {
                         .events
                         .onNext(.showConvertAlert(message:"Some message"))
                     var convertConfirmTriggered = false
+                    subject.viewModel.exchangeRates.accept(MockExchangeRateFactory.mockRates)
+                    subject.viewModel.fromCurrencyCode.accept("SGD")
                     subject.viewModel.fromCurrency.accept("100")
                     subject.viewModel.toCurrency.accept("100")
                     subject.viewModel

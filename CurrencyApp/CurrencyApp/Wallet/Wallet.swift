@@ -14,7 +14,12 @@ protocol WalletType {
     var currencyCode:String {get}
     var balance: BehaviorRelay<Double> { get }
     
+    @discardableResult
     func addMoney(_ money: Double) -> Bool
+    
+    func canTake(_ money: Double) -> Bool
+    
+    @discardableResult
     func takeMoney(_ money: Double) -> Bool
 }
 class Wallet: WalletType {
@@ -32,8 +37,8 @@ class Wallet: WalletType {
 
 extension Wallet {
     func addMoney(_ money: Double) -> Bool {
-        let bal = self.balanceAvailable.value
-        self.balanceAvailable.accept(bal + money)
+        let balance = self.balanceAvailable.value
+        self.balanceAvailable.accept(balance + money)
         return true
     }
     
@@ -41,8 +46,11 @@ extension Wallet {
         if balanceAvailable.value < money {
             return false
         }
-        let bal = self.balanceAvailable.value
-        self.balanceAvailable.accept(bal - money)
+        let balance = self.balanceAvailable.value
+        self.balanceAvailable.accept(balance - money)
         return true
+    }
+    func canTake(_ money: Double) -> Bool {
+        return balanceAvailable.value > money
     }
 }
