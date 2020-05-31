@@ -14,6 +14,7 @@ class ConvertorViewModel {
     let title = "Convert"
     let currencyService: CurrencyServiceType
     let transactionDB: RealmDbType
+    let wallet: WalletType
     
     let convertButtonClicked = PublishSubject<Void>()
     let convertConfirmed = PublishSubject<Void>()
@@ -29,6 +30,7 @@ class ConvertorViewModel {
     let toCurrencyCode: BehaviorRelay<String> = BehaviorRelay<String>(value: "")
     
     let skipCalculation: BehaviorRelay<Bool> = BehaviorRelay<Bool>(value: false)
+    let walletBalance: BehaviorRelay<String> = BehaviorRelay<String>(value: "")
     
     private let disposeBag = DisposeBag()
    
@@ -64,10 +66,12 @@ class ConvertorViewModel {
     }
     
     init(currencyService: CurrencyServiceType,
-         transactionDB: RealmDbType) {
+         transactionDB: RealmDbType,
+         wallet: WalletType) {
         self.transactionDB = transactionDB
         self.currencyService = currencyService
-        
+        self.wallet = wallet
+        setupWallet()
         setupCalculation()
         setupEvents()
         setupFetch()
@@ -76,6 +80,13 @@ class ConvertorViewModel {
 }
 
 extension ConvertorViewModel {
+    private func setupWallet() {
+        self.wallet.balance.asObservable()
+            .map { String(format: "SGD %.2f", $0)}
+            .bind(to: self.walletBalance)
+            .disposed(by: disposeBag)
+    }
+
     private func setupEvents() {
         convertButtonClicked.asObservable()
             .map{ [weak self ] _ in

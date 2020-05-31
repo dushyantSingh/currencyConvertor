@@ -27,11 +27,14 @@ class MainViewCoordinatorSpec: QuickSpec {
                 context("when view model is ConvertorViewModel") {
                     var mockService: CurrencyServiceType!
                     var mockDb: MockTransactionDb!
+                    var mockWallet: MockWallet!
                     beforeEach {
                         mockService = MockCurrencyService()
                         mockDb = MockTransactionDb()
+                        mockWallet = MockWallet()
                         let viewModel = ConvertorViewModel(currencyService: mockService,
-                                                           transactionDB: mockDb)
+                                                           transactionDB: mockDb,
+                                                           wallet: mockWallet)
                         subject.viewModelCoordinator
                             .navigationAction.onNext(.push(viewModel: viewModel,
                                                            animated: true))

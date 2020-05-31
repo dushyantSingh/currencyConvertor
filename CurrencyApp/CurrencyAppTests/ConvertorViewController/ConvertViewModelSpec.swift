@@ -18,12 +18,15 @@ class ConvertorViewModelSpec: QuickSpec {
             var subject: ConvertorViewModel!
             var mockCurrencyService: MockCurrencyService!
             var mockTransactionDb: MockTransactionDb!
+            var mockWallet: MockWallet!
             var disposeBag: DisposeBag!
             beforeEach {
                 mockCurrencyService = MockCurrencyService()
                 mockTransactionDb = MockTransactionDb()
+                mockWallet = MockWallet()
                 subject = ConvertorViewModel(currencyService: mockCurrencyService,
-                                             transactionDB: mockTransactionDb)
+                                             transactionDB: mockTransactionDb,
+                                             wallet: mockWallet)
                 disposeBag = DisposeBag()
             }
             context("When convert button is triggered") {
@@ -257,6 +260,26 @@ class ConvertorViewModelSpec: QuickSpec {
                     expect(transactionObj.toCurrency).to(equal(50000))
                     expect(transactionObj.fromCurrency).to(equal(1000))
                     expect(transactionObj.exchangeRate).to(equal(50.00))
+                }
+                context("when wallet balace is changed") {
+                    it("should update wallet balance in view model") {
+                        var actualBalance = ""
+                        subject.walletBalance
+                            .subscribe(onNext: { balance in
+                                actualBalance = balance })
+                            .disposed(by: disposeBag)
+                        mockWallet.mockBalance.accept(10.90)
+                        expect(actualBalance).to(equal(("SGD 10.90")))
+                    }
+                    it("should update wallet balance in view model") {
+                        var actualBalance = ""
+                        subject.walletBalance
+                            .subscribe(onNext: { balance in
+                                actualBalance = balance })
+                            .disposed(by: disposeBag)
+                        mockWallet.mockBalance.accept(100.20)
+                        expect(actualBalance).to(equal(("SGD 100.20")))
+                    }
                 }
             }
         }
