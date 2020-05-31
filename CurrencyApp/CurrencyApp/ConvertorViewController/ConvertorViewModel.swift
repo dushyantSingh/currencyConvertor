@@ -95,7 +95,7 @@ class ConvertorViewModel {
 
 extension ConvertorViewModel {
     private func setupWallet() {
-        self.wallet.balance.asObservable()
+        self.wallet.rxBalance.asObservable()
             .map { String(format: "SGD %.2f", $0)}
             .bind(to: self.walletBalance)
             .disposed(by: disposeBag)

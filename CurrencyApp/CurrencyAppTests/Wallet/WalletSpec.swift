@@ -8,7 +8,7 @@
 
 import Quick
 import Nimble
-
+import RxSwift
 
 @testable import CurrencyApp
 
@@ -18,7 +18,7 @@ class WalletSpec: QuickSpec {
             let subject = Wallet.shared
             context("when wallet is created") {
                 it("should have a balance of 1000 SGD") {
-                    expect(subject.balance.value).to(equal(10000))
+                    expect(subject.balance).to(equal(10000))
                 }
                 it("should have a currency code SGD") {
                     expect(subject.currencyCode).to(equal("SGD"))

@@ -13,7 +13,9 @@ import RxSwift
 
 class MockWallet: WalletType {
     var currencyCode: String { "SGD"}
-    var balance: BehaviorRelay<Double> { mockBalance }
+    var balance: Double { mockBalance.value }
+    
+    var rxBalance: Observable<Double> { mockBalance.asObservable() }
     
     var takeMoneyCalled = false
     var canTakeMoney = true

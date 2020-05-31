@@ -12,7 +12,8 @@ import RxCocoa
 protocol WalletType {
     
     var currencyCode:String {get}
-    var balance: BehaviorRelay<Double> { get }
+    var balance: Double {get}
+    var rxBalance: Observable<Double> { get }
     
     @discardableResult
     func addMoney(_ money: Double) -> Bool
@@ -23,9 +24,9 @@ protocol WalletType {
     func takeMoney(_ money: Double) -> Bool
 }
 class Wallet: WalletType {
+    var balance: Double { balanceAvailable.value }
     var currencyCode: String { "SGD" }
-    
-    var balance: BehaviorRelay<Double> { balanceAvailable }
+    var rxBalance: Observable<Double> { balanceAvailable.asObservable() }
     
     static let shared: Wallet = Wallet()
     private var balanceAvailable: BehaviorRelay<Double>
