@@ -16,9 +16,11 @@ class MainViewModelCoordinatorSpec: QuickSpec {
     override func spec() {
         describe("MainViewModelCoordinator Test") {
             var subject: MainViewModelCoordinator!
+            var mockDb: MockTransactionDb!
             var disposeBag: DisposeBag!
             beforeEach {
-                subject = MainViewModelCoordinator()
+                mockDb = MockTransactionDb()
+                subject = MainViewModelCoordinator(transactionDb: mockDb)
                 disposeBag = DisposeBag()
             }
             context("when create convertor view model") {
@@ -36,6 +38,9 @@ class MainViewModelCoordinatorSpec: QuickSpec {
                             .disposed(by: disposeBag)
                         viewModel.events
                             .onNext(.showTransactionView)
+                    }
+                    it("should fetch transactions from db") {
+                        expect(mockDb.fetchTransactionsCalled).to(beTrue())
                     }
                     it("should push edit note view controller") {
                         expect(navigationAction).to(equal(.push(viewModel: "Any", animated: true)))

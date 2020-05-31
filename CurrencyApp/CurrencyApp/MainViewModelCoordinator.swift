@@ -9,14 +9,19 @@
 import RxSwift
 
 class MainViewModelCoordinator {
-     let navigationAction = PublishSubject<NavigationAction>()
-     private let disposeBag = DisposeBag()
+    let navigationAction = PublishSubject<NavigationAction>()
+    let transactionDb: RealmDbType
+    private let disposeBag = DisposeBag()
+    
+    init(transactionDb: RealmDbType = TransactionDb.shared) {
+        self.transactionDb = transactionDb
+    }
 }
 
 extension MainViewModelCoordinator {
     func createStartUpViewModel() -> ConvertorViewModel {
         let currencyService = CurrencyService()
-        let transactionDb = TransactionDb.shared
+        
         let viewModel = ConvertorViewModel(currencyService: currencyService,
                                            transactionDB: transactionDb)
         self.setup(convertorViewModel: viewModel)
@@ -31,8 +36,12 @@ extension MainViewModelCoordinator {
             .flatMap { event -> Observable<NavigationAction> in
                 switch event {
                 case .showTransactionView:
-                    let stub = TransactionStub.transactions
-                    let viewModel = TransactionViewModel(transactions: stub)
+                    let transactionObjs = self.transactionDb.realmObjects(type: TransactionObject.self)
+                    var transactions: [TransactionModel] = []
+                    transactionObjs?
+                        .forEach { transactions.append( TransactionModel(transactionObject: $0))}
+                    
+                    let viewModel = TransactionViewModel(transactions: transactions)
                     return Observable.just(.push(viewModel: viewModel,
                                                     animated: true))
                 default: return Observable.empty()

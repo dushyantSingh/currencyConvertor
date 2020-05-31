@@ -17,10 +17,15 @@ class MockTransactionDb: RealmDbType {
     var objectTypes: [Object.Type] = [TransactionObject.self]
     
     var saveTransactionCalledWithObject: Object?
+    var fetchTransactionsCalled: Bool = false
     func initializeId() -> Int {
         return 101
     }
     func save<T>(object: T) where T : Object {
         saveTransactionCalledWithObject = object
+    }
+    func realmObjects<T>(type: T.Type) -> [T]? where T : Object {
+        fetchTransactionsCalled = true
+        return []
     }
 }
