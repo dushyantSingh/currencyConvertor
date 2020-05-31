@@ -36,6 +36,9 @@ extension TransactionViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellID)
             as? TransactionTableViewCell
             else { return  UITableViewCell() }
+        let transactionModel = viewModel.transactions[indexPath.row]
+        let cellModel = ModelConvertor.convertToCellModel(transactionModel)
+        cell.configure(with: cellModel)
         return cell
     }
 }
