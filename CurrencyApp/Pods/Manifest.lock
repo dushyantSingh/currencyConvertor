@@ -2,6 +2,11 @@ PODS:
   - IQKeyboardManagerSwift (6.5.4)
   - Nimble (8.0.9)
   - Quick (2.2.0)
+  - Realm (4.4.1):
+    - Realm/Headers (= 4.4.1)
+  - Realm/Headers (4.4.1)
+  - RealmSwift (4.4.1):
+    - Realm (= 4.4.1)
   - RxCocoa (5.1.1):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
@@ -11,6 +16,9 @@ PODS:
   - RxOptional (4.1.0):
     - RxCocoa (~> 5)
     - RxSwift (~> 5)
+  - RxRealm (2.0.0):
+    - RealmSwift (~> 4.0)
+    - RxSwift (~> 5.0)
   - RxRelay (5.1.1):
     - RxSwift (~> 5)
   - RxSwift (5.1.1)
@@ -22,6 +30,7 @@ DEPENDENCIES:
   - RxCocoa
   - RxGesture
   - RxOptional
+  - RxRealm
   - RxSwift
 
 SPEC REPOS:
@@ -29,9 +38,12 @@ SPEC REPOS:
     - IQKeyboardManagerSwift
     - Nimble
     - Quick
+    - Realm
+    - RealmSwift
     - RxCocoa
     - RxGesture
     - RxOptional
+    - RxRealm
     - RxRelay
     - RxSwift
 
@@ -39,12 +51,15 @@ SPEC CHECKSUMS:
   IQKeyboardManagerSwift: 2dde0fc70110e8eac7ccce2a46fdbec6a850b414
   Nimble: 98b888285a615fd34f20e61753cf58ea1402bde4
   Quick: 7fb19e13be07b5dfb3b90d4f9824c855a11af40e
+  Realm: 4eb04d7487bd43c0581256f40b424eafb711deff
+  RealmSwift: 3eb8924ff7100df5928c7602f71d0fec51e7c9c5
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxGesture: d6bd7447ca3a596c7a9702a6a2b6a2bb5d8bae54
   RxOptional: b1fcd60856807a564c0215c2184b8d33e7826dc2
+  RxRealm: 900f5c7e6f0a2d6527b56eaf7283f3035ec1e8ba
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
 
-PODFILE CHECKSUM: 27cefb219710411ab840f2c0e0195104c51f86bc
+PODFILE CHECKSUM: ff2d8818375715363f3a03ddc05938cf5a302d8c
 
 COCOAPODS: 1.9.1
