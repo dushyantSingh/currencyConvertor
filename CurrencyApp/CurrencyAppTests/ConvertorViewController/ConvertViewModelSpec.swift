@@ -92,7 +92,7 @@ class ConvertorViewModelSpec: QuickSpec {
                 }
                 it("should emit showConvertAlert event when all fields are filled") {
                     let expectedMessage = "Are you sure you want to convert SGD 100 to EUR 1000?"
-
+                    subject.exchangeRates.accept(MockExchangeRateFactory.mockRates)
                     subject.fromCurrencyCode.accept("SGD")
                     subject.toCurrencyCode.accept("EUR")
                     subject.fromCurrency.accept("100")
@@ -101,6 +101,20 @@ class ConvertorViewModelSpec: QuickSpec {
                     subject.convertButtonClicked.onNext(())
 
                     expect(showConvertAlertEvent).to(beTrue())
+                    expect(actualMessage).to(equal(expectedMessage))
+                }
+                it("should emit showErrorAlert when wallet has less balance than requested money") {
+                    let expectedMessage = "Insufficient balance in wallet"
+                    subject.exchangeRates.accept(MockExchangeRateFactory.mockRates)
+                    mockWallet.canTakeMoney = false
+                    subject.fromCurrencyCode.accept("SGD")
+                    subject.toCurrencyCode.accept("EUR")
+                    subject.fromCurrency.accept("1000")
+                    subject.toCurrency.accept("1000")
+
+                    subject.convertButtonClicked.onNext(())
+
+                    expect(showErrorAlertEvent).to(beTrue())
                     expect(actualMessage).to(equal(expectedMessage))
                 }
             }

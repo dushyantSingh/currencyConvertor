@@ -16,6 +16,7 @@ class MockWallet: WalletType {
     var balance: BehaviorRelay<Double> { mockBalance }
     
     var takeMoneyCalled = false
+    var canTakeMoney = true
     var mockBalance = BehaviorRelay<Double>(value: 1000)
     func addMoney(_ money: Double) -> Bool {
         return true
@@ -25,6 +26,6 @@ class MockWallet: WalletType {
         return true
     }
     func canTake(_ money: Double) -> Bool {
-        return true
+        return canTakeMoney
     }
 }

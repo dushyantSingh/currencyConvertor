@@ -42,9 +42,23 @@ class ConvertorViewModel {
             (Double(self.fromCurrency.value) != nil) &&
             (Double(self.toCurrency.value) != nil)
     }
+    private var isSufficientBalanceInWallet: Bool {
+        guard let doubleCurrencyValue = Double(self.fromCurrency.value)
+            else { return false }
+        
+        let sgdAmount: Double = self.convertToSGD(money: doubleCurrencyValue,
+                                                  currencyCode: self.fromCurrencyCode.value)
+        return self.wallet.canTake(sgdAmount)
+    }
+    
     private var convertAlertMessage: String {
         if areFieldsValid {
-            return "Are you sure you want to convert \(self.fromCurrencyCode.value) \(self.fromCurrency.value) to \(self.toCurrencyCode.value) \(self.toCurrency.value)?"
+            if isSufficientBalanceInWallet {
+                return "Are you sure you want to convert \(self.fromCurrencyCode.value) \(self.fromCurrency.value) to \(self.toCurrencyCode.value) \(self.toCurrency.value)?"
+            } else {
+                return "Insufficient balance in wallet"
+            }
+            
         }
         return "Please fill all fields before conversion."
     }
@@ -92,10 +106,11 @@ extension ConvertorViewModel {
             .map{ [weak self ] _ in
                 self?.convertAlertMessage }
             .filterNil()
-            .map{ [weak self ] message in
-                (self?.areFieldsValid ?? false) ?
-                    .showConvertAlert(message: message) :
-                    .showErrorAlert(message: message)}
+            .flatMap {[weak self ] message -> Observable<ConvertorViewModelEvents> in
+                guard let self = self else  { return Observable.empty() }
+                return self.areFieldsValid && self.isSufficientBalanceInWallet  ?
+                    Observable.just(.showConvertAlert(message: message)) :
+                    Observable.just(.showErrorAlert(message: message)) }
             .bind(to: events)
             .disposed(by: disposeBag)
         
@@ -162,7 +177,6 @@ extension ConvertorViewModel {
     func convertToSGD(money: Double, currencyCode: String) -> Double {
         let exchangeRateForSGD: Double = self.exchangeRates.value["SGD"]!
         let exchangeRateForGivenCurrecy: Double = self.exchangeRates.value[currencyCode]!
-        
         return money * (exchangeRateForSGD/exchangeRateForGivenCurrecy)
     }
 }
