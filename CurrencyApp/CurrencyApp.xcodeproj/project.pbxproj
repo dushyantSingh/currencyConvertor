@@ -49,6 +49,9 @@
 		44D501D32483DAA3008DEC05 /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D501D22483DAA3008DEC05 /* DateHelper.swift */; };
 		44D501D52483E8E7008DEC05 /* TransactionTableViewCellSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D501D42483E8E7008DEC05 /* TransactionTableViewCellSpec.swift */; };
 		44D501D82483EB59008DEC05 /* ModelConvertorSpec.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D501D72483EB59008DEC05 /* ModelConvertorSpec.swift */; };
+		44D501DC2483F58C008DEC05 /* RealmDbType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D501DB2483F58C008DEC05 /* RealmDbType.swift */; };
+		44D501DE2483F638008DEC05 /* TransactionDb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D501DD2483F637008DEC05 /* TransactionDb.swift */; };
+		44D501E02483F736008DEC05 /* TransactionObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D501DF2483F736008DEC05 /* TransactionObject.swift */; };
 		55CCC47EDBF52346AD2551CD /* Pods_CurrencyAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 358BB5A1F19004F6C768AEAB /* Pods_CurrencyAppTests.framework */; };
 		DC2A231C2F1F17DA4B3BB7EB /* Pods_CurrencyApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEBA12C20A059CA200627042 /* Pods_CurrencyApp.framework */; };
 /* End PBXBuildFile section */
@@ -111,6 +114,9 @@
 		44D501D22483DAA3008DEC05 /* DateHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		44D501D42483E8E7008DEC05 /* TransactionTableViewCellSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCellSpec.swift; sourceTree = "<group>"; };
 		44D501D72483EB59008DEC05 /* ModelConvertorSpec.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelConvertorSpec.swift; sourceTree = "<group>"; };
+		44D501DB2483F58C008DEC05 /* RealmDbType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmDbType.swift; sourceTree = "<group>"; };
+		44D501DD2483F637008DEC05 /* TransactionDb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionDb.swift; sourceTree = "<group>"; };
+		44D501DF2483F736008DEC05 /* TransactionObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionObject.swift; sourceTree = "<group>"; };
 		4A43AB9A6EAB247AC9BCDD88 /* Pods-CurrencyApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyApp.debug.xcconfig"; path = "Target Support Files/Pods-CurrencyApp/Pods-CurrencyApp.debug.xcconfig"; sourceTree = "<group>"; };
 		96B266A094FE9521E9AA2D41 /* Pods-CurrencyApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyApp.release.xcconfig"; path = "Target Support Files/Pods-CurrencyApp/Pods-CurrencyApp.release.xcconfig"; sourceTree = "<group>"; };
 		BEBA12C20A059CA200627042 /* Pods_CurrencyApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CurrencyApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -165,6 +171,7 @@
 				44D5015D248109D8008DEC05 /* SceneDelegate.swift */,
 				44D501842481205E008DEC05 /* MainViewCoordinator.swift */,
 				44D50186248120DA008DEC05 /* MainViewModelCoordinator.swift */,
+				44D501DA2483F56C008DEC05 /* Database */,
 				44D5017D24810AE8008DEC05 /* ConvertorViewController */,
 				44D501AC2483B1DD008DEC05 /* TransactionViewController */,
 				44D5018B24817AC8008DEC05 /* CurrencyService */,
@@ -294,6 +301,16 @@
 				44D501D72483EB59008DEC05 /* ModelConvertorSpec.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		44D501DA2483F56C008DEC05 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				44D501DB2483F58C008DEC05 /* RealmDbType.swift */,
+				44D501DD2483F637008DEC05 /* TransactionDb.swift */,
+				44D501DF2483F736008DEC05 /* TransactionObject.swift */,
+			);
+			path = Database;
 			sourceTree = "<group>";
 		};
 		ADCA166A3580E3863F6C1ECB /* Frameworks */ = {
@@ -507,9 +524,11 @@
 			files = (
 				44D5018124811E5F008DEC05 /* ConvertorViewModel.swift in Sources */,
 				44D5018D24817AEC008DEC05 /* ExchangeModel.swift in Sources */,
+				44D501DE2483F638008DEC05 /* TransactionDb.swift in Sources */,
 				44D5019D24826643008DEC05 /* AlertModel.swift in Sources */,
 				44D501A6248292EA008DEC05 /* ConvertorViewModelEvents.swift in Sources */,
 				44D501AB24831607008DEC05 /* ObservableHelper.swift in Sources */,
+				44D501DC2483F58C008DEC05 /* RealmDbType.swift in Sources */,
 				44D5015C248109D8008DEC05 /* AppDelegate.swift in Sources */,
 				44D5019324817DB0008DEC05 /* CurrencyRequest.swift in Sources */,
 				44D501B42483B3C0008DEC05 /* NavigationActions.swift in Sources */,
@@ -521,6 +540,7 @@
 				44D501852481205E008DEC05 /* MainViewCoordinator.swift in Sources */,
 				44D501C92483D3B5008DEC05 /* TransactionModel.swift in Sources */,
 				44D50187248120DA008DEC05 /* MainViewModelCoordinator.swift in Sources */,
+				44D501E02483F736008DEC05 /* TransactionObject.swift in Sources */,
 				44D501C62483CA00008DEC05 /* ViewHelper.swift in Sources */,
 				44D5015E248109D8008DEC05 /* SceneDelegate.swift in Sources */,
 				44D501B02483B214008DEC05 /* TransactionViewModel.swift in Sources */,

@@ -49,6 +49,7 @@ class ConvertorViewModel {
         setupCalculation()
         setupEvents()
         setupFetch()
+
     }
 }
 
