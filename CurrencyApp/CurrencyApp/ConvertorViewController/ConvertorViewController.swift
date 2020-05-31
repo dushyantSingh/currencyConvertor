@@ -20,6 +20,8 @@ class ConvertorViewController: UIViewController, ViewControllerProtocol {
     @IBOutlet weak var toCurrencyTextField: UITextField!
     @IBOutlet weak var fromCurrencyCodeTextField: UITextField!
     @IBOutlet weak var toCurrencyCodeTextField: UITextField!
+    @IBOutlet weak var toCurrencyView: UIView!
+    @IBOutlet weak var fromCurrencyView: UIView!
     
     private let disposeBag = DisposeBag()
     var fromPickerView = UIPickerView()
@@ -41,6 +43,10 @@ class ConvertorViewController: UIViewController, ViewControllerProtocol {
 extension ConvertorViewController {
     private func setupUI() {
         self.title = viewModel.title
+        
+        self.fromCurrencyView.setCornerRadius(.large)
+        self.toCurrencyView.setCornerRadius(.large)
+        self.convertButton.setCornerRadius(.small)
         
         convertButton.rx.tap
             .bind(to: viewModel.convertButtonClicked)

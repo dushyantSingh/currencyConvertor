@@ -121,8 +121,10 @@
                         <outlet property="convertButton" destination="2eW-an-Bpa" id="TMH-QV-Y3V"/>
                         <outlet property="fromCurrencyCodeTextField" destination="hLo-Gi-tpC" id="QQ7-T0-EaX"/>
                         <outlet property="fromCurrencyTextField" destination="oKq-g3-5gc" id="iAR-dV-1u7"/>
+                        <outlet property="fromCurrencyView" destination="cCc-KO-wDt" id="ec8-AC-m96"/>
                         <outlet property="toCurrencyCodeTextField" destination="2fR-RX-Fsa" id="ksH-g7-5ka"/>
                         <outlet property="toCurrencyTextField" destination="RKP-yN-y38" id="mCu-Xd-fIJ"/>
+                        <outlet property="toCurrencyView" destination="s3P-CU-269" id="tZg-nh-CGt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kBM-iC-UU9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
