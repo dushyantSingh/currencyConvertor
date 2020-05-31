@@ -30,6 +30,9 @@
 		44D501A72482B9CC008DEC05 /* ConvertorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D5017E24811E47008DEC05 /* ConvertorViewController.swift */; };
 		44D501A924830C2B008DEC05 /* MockExchangeRate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D501A824830C2A008DEC05 /* MockExchangeRate.swift */; };
 		44D501AB24831607008DEC05 /* ObservableHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D501AA24831606008DEC05 /* ObservableHelper.swift */; };
+		44D501AE2483B200008DEC05 /* TransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D501AD2483B200008DEC05 /* TransactionViewController.swift */; };
+		44D501B02483B214008DEC05 /* TransactionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D501AF2483B214008DEC05 /* TransactionViewModel.swift */; };
+		44D501B22483B228008DEC05 /* TransactionViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44D501B12483B228008DEC05 /* TransactionViewController.storyboard */; };
 		55CCC47EDBF52346AD2551CD /* Pods_CurrencyAppTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 358BB5A1F19004F6C768AEAB /* Pods_CurrencyAppTests.framework */; };
 		DC2A231C2F1F17DA4B3BB7EB /* Pods_CurrencyApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BEBA12C20A059CA200627042 /* Pods_CurrencyApp.framework */; };
 /* End PBXBuildFile section */
@@ -73,6 +76,9 @@
 		44D501A5248292EA008DEC05 /* ConvertorViewModelEvents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertorViewModelEvents.swift; sourceTree = "<group>"; };
 		44D501A824830C2A008DEC05 /* MockExchangeRate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockExchangeRate.swift; sourceTree = "<group>"; };
 		44D501AA24831606008DEC05 /* ObservableHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableHelper.swift; sourceTree = "<group>"; };
+		44D501AD2483B200008DEC05 /* TransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewController.swift; sourceTree = "<group>"; };
+		44D501AF2483B214008DEC05 /* TransactionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewModel.swift; sourceTree = "<group>"; };
+		44D501B12483B228008DEC05 /* TransactionViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TransactionViewController.storyboard; sourceTree = "<group>"; };
 		4A43AB9A6EAB247AC9BCDD88 /* Pods-CurrencyApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyApp.debug.xcconfig"; path = "Target Support Files/Pods-CurrencyApp/Pods-CurrencyApp.debug.xcconfig"; sourceTree = "<group>"; };
 		96B266A094FE9521E9AA2D41 /* Pods-CurrencyApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CurrencyApp.release.xcconfig"; path = "Target Support Files/Pods-CurrencyApp/Pods-CurrencyApp.release.xcconfig"; sourceTree = "<group>"; };
 		BEBA12C20A059CA200627042 /* Pods_CurrencyApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CurrencyApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,6 +133,7 @@
 				44D5015D248109D8008DEC05 /* SceneDelegate.swift */,
 				44D501842481205E008DEC05 /* MainViewCoordinator.swift */,
 				44D50186248120DA008DEC05 /* MainViewModelCoordinator.swift */,
+				44D501AC2483B1DD008DEC05 /* TransactionViewController */,
 				44D5018824812388008DEC05 /* Helpers */,
 				44D5017D24810AE8008DEC05 /* ConvertorViewController */,
 				44D5018B24817AC8008DEC05 /* CurrencyService */,
@@ -197,6 +204,16 @@
 				44D501A824830C2A008DEC05 /* MockExchangeRate.swift */,
 			);
 			path = Mocks;
+			sourceTree = "<group>";
+		};
+		44D501AC2483B1DD008DEC05 /* TransactionViewController */ = {
+			isa = PBXGroup;
+			children = (
+				44D501AD2483B200008DEC05 /* TransactionViewController.swift */,
+				44D501AF2483B214008DEC05 /* TransactionViewModel.swift */,
+				44D501B12483B228008DEC05 /* TransactionViewController.storyboard */,
+			);
+			path = TransactionViewController;
 			sourceTree = "<group>";
 		};
 		ADCA166A3580E3863F6C1ECB /* Frameworks */ = {
@@ -305,6 +322,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44D501B22483B228008DEC05 /* TransactionViewController.storyboard in Resources */,
 				44D50168248109DB008DEC05 /* LaunchScreen.storyboard in Resources */,
 				44D50165248109DB008DEC05 /* Assets.xcassets in Resources */,
 				44D5018324811E74008DEC05 /* ConvertorViewController.storyboard in Resources */,
@@ -418,9 +436,11 @@
 				44D501852481205E008DEC05 /* MainViewCoordinator.swift in Sources */,
 				44D50187248120DA008DEC05 /* MainViewModelCoordinator.swift in Sources */,
 				44D5015E248109D8008DEC05 /* SceneDelegate.swift in Sources */,
+				44D501B02483B214008DEC05 /* TransactionViewModel.swift in Sources */,
 				44D501A72482B9CC008DEC05 /* ConvertorViewController.swift in Sources */,
 				44D5019124817D46008DEC05 /* Environment.swift in Sources */,
 				44D5019F24826E50008DEC05 /* AlertViewPresenter.swift in Sources */,
+				44D501AE2483B200008DEC05 /* TransactionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
