@@ -28,7 +28,7 @@ class ConvertorViewController: UIViewController, ViewControllerProtocol {
     override func viewDidLoad() {
         setupUI()
         setupEvent()
-        
+        setupShowTransactionButton()
         setupCurrencyTextField()
         setupCurrencyCodeTextFields()
        
@@ -127,12 +127,28 @@ extension ConvertorViewController {
                                                        message: message,
                                                        actions: [cancelButton],
                                                        viewController: self)
+                default:
+                    return Observable.empty()
                 }
         }
         .filter({ $0 == .alertButtonTapped(buttonIndex: 1)})
         .map { _ in ()}
         .bind(to: viewModel.convertConfirmed)
         .disposed(by: disposeBag)
+    }
+    
+    private func setupShowTransactionButton() {
+        let showTransactionButton = UIBarButtonItem(image: UIImage(systemName: "arrow.right.arrow.left"),
+                                        style: .plain,
+                                        target: self,
+                                        action: nil)
+        
+        showTransactionButton.tintColor = UIColor(named: "FontColor")
+        self.navigationItem.rightBarButtonItem = showTransactionButton
+        
+        showTransactionButton.rx.tap
+            .bind(to: viewModel.showTransactionButtonClicked)
+            .disposed(by: disposeBag)
     }
     
     func fetchExchangeRates() {

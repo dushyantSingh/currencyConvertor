@@ -254,6 +254,27 @@ class ConvertorViewControllerSpec: QuickSpec {
                     expect(subject.viewModel.skipCalculation.value).to(beFalse())
                 }
             }
+            context("when show transaction button is clicked") {
+                it("should trigger showTransactionButtonClicked in view model") {
+                    var showTransactionTriggered = false
+                    subject.viewModel.showTransactionButtonClicked
+                        .subscribe(onNext: { _ in
+                            showTransactionTriggered = true
+                        })
+                        .disposed(by: disposeBag)
+                    guard let showButton = subject.navigationItem.rightBarButtonItem else {
+                        fail("No showTransaction button found")
+                        return
+                    }
+                    
+                    UIApplication.shared
+                        .sendAction(showButton.action!,
+                                    to: showButton.target!,
+                                    from: nil,
+                                    for: nil)
+                    expect(showTransactionTriggered).to(beTrue())
+                }
+            }
         }
     }
 }
