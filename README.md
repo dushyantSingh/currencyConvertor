@@ -20,4 +20,4 @@ As it is event driven, makes it easier to unit test each events.
 Minimum Xcode requirement is Xcode 11. As application uses SF symbols and they are available in xcode 11
 
 ### Dependencies
-Application uses cocoapods dependencies management. If you dont have cocoapods install refer to [Installation guide](https://guides.cocoapods.org/using/getting-started.html#installation)
+Application uses cocoapods dependencies management. If you dont have cocoapods installed refer to [Installation guide](https://guides.cocoapods.org/using/getting-started.html#installation)
