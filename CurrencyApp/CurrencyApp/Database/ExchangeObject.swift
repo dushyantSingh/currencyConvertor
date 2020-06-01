@@ -10,6 +10,8 @@ import Foundation
 import RealmSwift
 
 class ExchangeObject: Object {
+    
+    @objc dynamic var id: Int = 0
     @objc dynamic var rates: Data = Data()
     @objc dynamic var base: String = ""
     @objc dynamic var date: String = ""
@@ -22,7 +24,11 @@ class ExchangeObject: Object {
         } else {
            print("Rates encoding failed")
         }
+        self.id = 0
         self.base = exchangeModel.base
         self.date = exchangeModel.date
+    }
+    override static func primaryKey() -> String? {
+        return "id"
     }
 }

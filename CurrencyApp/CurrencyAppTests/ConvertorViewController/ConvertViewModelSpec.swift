@@ -138,11 +138,20 @@ class ConvertorViewModelSpec: QuickSpec {
                     subject.latestRateRequest.onNext(())
                     mockCurrencyService.onRetrieve.onNext(mockData)
                     let expectecObj = ExchangeObject(exchangeModel: mockData)
-                   let actualObj = mockTransactionDb.saveWithoutUpdateCalledWithObject as! ExchangeObject
+                   let actualObj = mockTransactionDb.saveTransactionCalledWithObject as! ExchangeObject
                     expect(actualObj.rates).to(equal(expectecObj.rates))
                     expect(actualObj.base).to(equal(expectecObj.base))
                     expect(actualObj.date).to(equal(expectecObj.date))
                 }
+                it("should add base exchange rate to exchange rates") {
+                    let mockData = ExchangeModel(rates: ["SGD" : 1.5], base: "EUR", date: "Today")
+                    subject.latestRateRequest.onNext(())
+                    mockCurrencyService.onRetrieve.onNext(mockData)
+                    expect(subject.exchangeRates.value.count).to(equal(2))
+                    expect(subject.exchangeRates.value["EUR"]).to(equal(1.0))
+                    expect(subject.exchangeRates.value["SGD"]).to(equal(1.5))
+                }
+                
                 it("should emit show error alert event when retrieve fails") {
                     let error = MockError()
                     subject.latestRateRequest.onNext(())
@@ -161,6 +170,19 @@ class ConvertorViewModelSpec: QuickSpec {
                     subject.latestRateRequest.onNext(())
                     mockCurrencyService.onRetrieve.onError(error)
                     expect(mockTransactionDb.fetchTransactionsCalled).toEventually(beTrue())
+                }
+                it("should add base exchange rate to exchange rates when retrieve fails") {
+                    let mockExchangeModel = ExchangeModel(rates: ["SGD" : 1.5],
+                                                          base: "EUR",
+                                                          date: "Today")
+                    let mockExchangeObject = ExchangeObject(exchangeModel: mockExchangeModel)
+                    mockTransactionDb.realmObject = [mockExchangeObject]
+                    let error = MockError()
+                    subject.latestRateRequest.onNext(())
+                    mockCurrencyService.onRetrieve.onError(error)
+                    expect(subject.exchangeRates.value.count).to(equal(2))
+                    expect(subject.exchangeRates.value["EUR"]).to(equal(1.0))
+                    expect(subject.exchangeRates.value["SGD"]).to(equal(1.5))
                 }
             }
             context("When calculation is triggered") {

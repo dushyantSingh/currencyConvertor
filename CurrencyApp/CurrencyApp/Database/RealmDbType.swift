@@ -19,7 +19,6 @@ protocol RealmDbType: AnyObject {
     
     func initializeDB(completion: (_ success: Bool, _ error: Error?) -> Void)
     func save<T: Object>(object: T)
-    func saveWithoutUpdate<T: Object>(objects: [T])
     func realmObjects<T: Object>(type: T.Type) -> [T]?
     func initializeId() -> Int
 }
@@ -46,17 +45,6 @@ extension RealmDbType {
             fatalError("RealmDB: (\(dbName)), save[T]: \(error.localizedDescription)")
         }
     }
-    public func saveWithoutUpdate<T: Object>(objects: [T]) {
-        do {
-            try self.realm?.write {
-                self.realm?.deleteAll()
-                self.realm?.add(objects)
-            }
-        } catch (let error) {
-            fatalError("RealmDB: (\(dbName)), save[T]: \(error.localizedDescription)")
-        }
-    }
-    
 
     public func realmObjects<T: Object>(type: T.Type) -> [T]? {
            return self.realm?.objects(T.self).toArray()

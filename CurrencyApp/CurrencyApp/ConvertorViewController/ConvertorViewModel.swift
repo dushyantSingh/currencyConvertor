@@ -149,10 +149,12 @@ extension ConvertorViewModel {
                 
                 onError: {[weak self] error in
                     var message  = error.localizedDescription
-                    if let exchangeRate = self?.loadExchangeRatesFromDb() {
-                        message = "Unable to retrieve latest exchange rates. Currently using saved rates."
-                        self?.populateUI(rates: exchangeRate.rates)
-                        self?.setDefaultCurrencyCode(code: exchangeRate.base) }
+                    if let rates = self?.loadExchangeRatesFromDb() {
+                        message = "Unable to retrieve latest exchange rates. Currently using the saved rates."
+                        var exchangeRates = rates.rates
+                        exchangeRates[rates.base] = 1.0
+                        self?.populateUI(rates: exchangeRates)
+                        self?.setDefaultCurrencyCode(code: rates.base) }
                     self?.events.onNext(.showErrorAlert(message: message))})
             .disposed(by: disposeBag)
     }
@@ -188,7 +190,7 @@ extension ConvertorViewModel {
 extension ConvertorViewModel {
     func saveToDb(rates: ExchangeModel) {
         let exchangeObject = ExchangeObject(exchangeModel: rates)
-        self.transactionDB.saveWithoutUpdate(objects: [exchangeObject])
+        self.transactionDB.save(object: exchangeObject)
     }
     func loadExchangeRatesFromDb() -> ExchangeModel? {
         let decoder = JSONDecoder()

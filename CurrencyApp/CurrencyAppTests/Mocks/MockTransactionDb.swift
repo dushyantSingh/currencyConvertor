@@ -17,8 +17,8 @@ class MockTransactionDb: RealmDbType {
     var objectTypes: [Object.Type] = [TransactionObject.self]
     
     var saveTransactionCalledWithObject: Object?
-    var saveWithoutUpdateCalledWithObject: Object?
     var fetchTransactionsCalled: Bool = false
+    var realmObject: [Object] = []
     func initializeId() -> Int {
         return 101
     }
@@ -27,9 +27,6 @@ class MockTransactionDb: RealmDbType {
     }
     func realmObjects<T>(type: T.Type) -> [T]? where T : Object {
         fetchTransactionsCalled = true
-        return []
-    }
-    func saveWithoutUpdate<T>(objects: [T]) where T : Object {
-        saveWithoutUpdateCalledWithObject = objects.first
+        return realmObject as? [T]
     }
 }
